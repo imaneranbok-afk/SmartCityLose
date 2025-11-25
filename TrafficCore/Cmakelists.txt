@@ -1,0 +1,38 @@
+# Version minimum de CMake
+cmake_minimum_required(VERSION 3.10)
+
+# Nom du projet
+project(TrafficCore)
+
+# Standard C++
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Dossiers des sources et headers
+set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
+
+# Inclure les headers
+include_directories(${INCLUDE_DIR})
+
+# Chercher Raylib
+find_package(raylib CONFIG REQUIRED)
+if (raylib_FOUND)
+    message(STATUS "Raylib trouvé : ${raylib_LIBRARIES}")
+    include_directories(${raylib_INCLUDE_DIRS})
+else()
+    message(FATAL_ERROR "Raylib non trouvé !")
+endif()
+
+# Ajouter tous les fichiers sources
+file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp" "${INCLUDE_DIR}/*.h")
+
+# Créer l'exécutable
+add_executable(TrafficCore ${SOURCES})
+
+# Lier Raylib
+target_link_libraries(TrafficCore PRIVATE raylib)
+
+# Définir le dossier de sortie
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR})
