@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: TrafficCore
+# Project: SmartBoukhalf
 # Configurations: 
 # =============================================================================
 
@@ -36,51 +36,86 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/DELL/Smart-City/TrafficCore/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target test_roads
+# Object build statements for EXECUTABLE target smart_boukhalf
 
 
 #############################################
-# Order-only phony target for test_roads
+# Order-only phony target for smart_boukhalf
 
-build cmake_object_order_depends_target_test_roads: phony || .
+build cmake_object_order_depends_target_smart_boukhalf: phony || .
 
-build CMakeFiles/test_roads.dir/demos/test_roads.cpp.obj: CXX_COMPILER__test_roads_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/demos/test_roads.cpp || cmake_object_order_depends_target_test_roads
-  DEP_FILE = CMakeFiles\test_roads.dir\demos\test_roads.cpp.obj.d
-  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
-  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include
-  OBJECT_DIR = CMakeFiles\test_roads.dir
-  OBJECT_FILE_DIR = CMakeFiles\test_roads.dir\demos
+build CMakeFiles/smart_boukhalf.dir/demos/test_roads.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/demos/test_roads.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\demos\test_roads.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\demos
 
-build CMakeFiles/test_roads.dir/src/Node.cpp.obj: CXX_COMPILER__test_roads_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_roads
-  DEP_FILE = CMakeFiles\test_roads.dir\src\Node.cpp.obj.d
-  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
-  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include
-  OBJECT_DIR = CMakeFiles\test_roads.dir
-  OBJECT_FILE_DIR = CMakeFiles\test_roads.dir\src
+build CMakeFiles/smart_boukhalf.dir/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src\geometry
 
-build CMakeFiles/test_roads.dir/src/RoadSegment.cpp.obj: CXX_COMPILER__test_roads_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_roads
-  DEP_FILE = CMakeFiles\test_roads.dir\src\RoadSegment.cpp.obj.d
-  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
-  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include
-  OBJECT_DIR = CMakeFiles\test_roads.dir
-  OBJECT_FILE_DIR = CMakeFiles\test_roads.dir\src
+build CMakeFiles/smart_boukhalf.dir/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src\geometry
+
+build CMakeFiles/smart_boukhalf.dir/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src\geometry
+
+build CMakeFiles/smart_boukhalf.dir/src/Node.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\Node.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src
+
+build CMakeFiles/smart_boukhalf.dir/src/RoadSegment.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src
+
+build CMakeFiles/smart_boukhalf.dir/src/Intersection.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\Intersection.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src
+
+build CMakeFiles/smart_boukhalf.dir/src/RoadNetwork.cpp.obj: CXX_COMPILER__smart_boukhalf_unscanned_ C$:/Users/DELL/Smart-City/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_smart_boukhalf
+  DEP_FILE = CMakeFiles\smart_boukhalf.dir\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Wextra -Wpedantic -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -IC:/Users/DELL/Smart-City/TrafficCore/include -IC:/Users/DELL/Smart-City/TrafficCore/include/geometry
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
+  OBJECT_FILE_DIR = CMakeFiles\smart_boukhalf.dir\src
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target test_roads
+# Link build statements for EXECUTABLE target smart_boukhalf
 
 
 #############################################
-# Link the executable test_roads.exe
+# Link the executable smart_boukhalf.exe
 
-build test_roads.exe: CXX_EXECUTABLE_LINKER__test_roads_ CMakeFiles/test_roads.dir/demos/test_roads.cpp.obj CMakeFiles/test_roads.dir/src/Node.cpp.obj CMakeFiles/test_roads.dir/src/RoadSegment.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
-  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\test_roads.dir
+build smart_boukhalf.exe: CXX_EXECUTABLE_LINKER__smart_boukhalf_ CMakeFiles/smart_boukhalf.dir/demos/test_roads.cpp.obj CMakeFiles/smart_boukhalf.dir/src/geometry/StraightGeometry.cpp.obj CMakeFiles/smart_boukhalf.dir/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/smart_boukhalf.dir/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/smart_boukhalf.dir/src/Node.cpp.obj CMakeFiles/smart_boukhalf.dir/src/RoadSegment.cpp.obj CMakeFiles/smart_boukhalf.dir/src/Intersection.cpp.obj CMakeFiles/smart_boukhalf.dir/src/RoadNetwork.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\smart_boukhalf.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = test_roads.exe
-  TARGET_IMPLIB = libtest_roads.dll.a
-  TARGET_PDB = test_roads.exe.dbg
+  TARGET_FILE = smart_boukhalf.exe
+  TARGET_IMPLIB = libsmart_boukhalf.dll.a
+  TARGET_PDB = smart_boukhalf.exe.dbg
 
 
 #############################################
@@ -108,7 +143,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build test_roads: phony test_roads.exe
+build smart_boukhalf: phony smart_boukhalf.exe
 
 # =============================================================================
 # Folder targets.
@@ -118,7 +153,7 @@ build test_roads: phony test_roads.exe
 #############################################
 # Folder: C:/Users/DELL/Smart-City/TrafficCore/build
 
-build all: phony test_roads.exe
+build all: phony smart_boukhalf.exe
 
 # =============================================================================
 # Built-in targets
@@ -127,14 +162,14 @@ build all: phony test_roads.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/Users/DELL/Smart-City/TrafficCore/build/cmake_install.cmake: RERUN_CMAKE | C$:/Users/DELL/Smart-City/TrafficCore/CMakeLists.txt C$:/msys64/mingw64/lib/cmake/raylib/raylib-config-version.cmake C$:/msys64/mingw64/lib/cmake/raylib/raylib-config.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeCXXCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
+build build.ninja C$:/Users/DELL/Smart-City/TrafficCore/build/cmake_install.cmake: RERUN_CMAKE | C$:/Users/DELL/Smart-City/TrafficCore/CMakeLists.txt C$:/msys64/mingw64/lib/cmake/raylib/raylib-config-version.cmake C$:/msys64/mingw64/lib/cmake/raylib/raylib-config.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCXXCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/DELL/Smart-City/TrafficCore/CMakeLists.txt C$:/msys64/mingw64/lib/cmake/raylib/raylib-config-version.cmake C$:/msys64/mingw64/lib/cmake/raylib/raylib-config.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeCXXCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
+build C$:/Users/DELL/Smart-City/TrafficCore/CMakeLists.txt C$:/msys64/mingw64/lib/cmake/raylib/raylib-config-version.cmake C$:/msys64/mingw64/lib/cmake/raylib/raylib-config.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeRCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPkgConfig.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows-windres.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Windows.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCXXCompiler.cmake CMakeFiles/4.1.2/CMakeRCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
 
 
 #############################################
