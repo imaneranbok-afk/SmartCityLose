@@ -1,10 +1,8 @@
 # ninja log v7
-15	1286	7884813116654658	CMakeFiles/smart_boukhalf.dir/src/Node.cpp.obj	31ddc75ab33b2f1a
-4	1291	7884813116544947	CMakeFiles/smart_boukhalf.dir/src/geometry/StraightGeometry.cpp.obj	1e2448082d5c94a3
-22	1295	7884813116734459	CMakeFiles/smart_boukhalf.dir/src/Intersection.cpp.obj	5b806c4468bb500e
-12	1312	7884813116624741	CMakeFiles/smart_boukhalf.dir/src/geometry/RoundaboutGeometry.cpp.obj	c1c69f2b0abe1320
-8	1319	7884813116584853	CMakeFiles/smart_boukhalf.dir/src/geometry/CurvedGeometry.cpp.obj	925e81008840a521
-33	1387	7884813116844182	CMakeFiles/smart_boukhalf.dir/demos/test_roads.cpp.obj	2c1ebf53bc9d5265
-18	1615	7884813116684583	CMakeFiles/smart_boukhalf.dir/src/RoadSegment.cpp.obj	33d03832eab30303
-27	1888	7884813116784312	CMakeFiles/smart_boukhalf.dir/src/RoadNetwork.cpp.obj	ec4c0e19ce1c226e
-1888	2090	7884813135389251	smart_boukhalf.exe	451c5f29989e3a0c
+29	872	7887274203513895	CMakeFiles/smart_boukhalf.dir/src/Intersection.cpp.obj	5b806c4468bb500e
+4	955	7887274203180081	CMakeFiles/smart_boukhalf.dir/src/geometry/StraightGeometry.cpp.obj	1e2448082d5c94a3
+8	995	7887274203180081	CMakeFiles/smart_boukhalf.dir/src/geometry/CurvedGeometry.cpp.obj	925e81008840a521
+16	1024	7887274203382630	CMakeFiles/smart_boukhalf.dir/src/Node.cpp.obj	31ddc75ab33b2f1a
+21	1327	7887274203440373	CMakeFiles/smart_boukhalf.dir/src/RoadSegment.cpp.obj	33d03832eab30303
+41	1662	7887274203536514	CMakeFiles/smart_boukhalf.dir/src/RoadNetwork.cpp.obj	ec4c0e19ce1c226e
+54	590	7887275867943387	CMakeFiles/smart_boukhalf.dir/demos/test_roads.cpp.obj	2c1ebf53bc9d5265
