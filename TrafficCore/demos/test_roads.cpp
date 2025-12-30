@@ -6,16 +6,16 @@
 void CreateTestNetwork(RoadNetwork& network) {
     // Créer tous les noeuds avec leurs positions (X et Z échangés, puis divisés par 2)
     // Ancien: (-900, 0, 2100) -> Nouveau: (2100/2, 0, -900/2) = (1050, 0, -450)
-    Node* n1 = network.AddNode({1050.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 16.0f);
-    Node* n2 = network.AddNode({700.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 16.0f);
+    Node* n1 = network.AddNode({1050.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n2 = network.AddNode({700.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
     Node* n3 = network.AddNode({700.0f, 0.0f, -250.0f}, SIMPLE_INTERSECTION, 8.0f);
-    Node* n4 = network.AddNode({350.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 16.0f);
+    Node* n4 = network.AddNode({350.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
     Node* n5 = network.AddNode({350.0f, 0.1f, 0.0f}, ROUNDABOUT, 60.0f);
     Node* n6 = network.AddNode({0.0f, 0.1f, -450.0f}, ROUNDABOUT, 60.0f);
-    Node* n7 = network.AddNode({0.0f, 0.0f, -600.0f}, SIMPLE_INTERSECTION, 16.0f);
-    Node* n8 = network.AddNode({0.0f, 0.0f, 0.0f}, TRAFFIC_LIGHT, 20.0f);
-    Node* n9 = network.AddNode({0.0f, 0.0f, 150.0f}, SIMPLE_INTERSECTION, 16.0f);
-    Node* n10 = network.AddNode({-150.0f, 0.0f, 0.0f}, SIMPLE_INTERSECTION, 16.0f);
+    Node* n7 = network.AddNode({0.0f, 0.0f, -600.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n8 = network.AddNode({0.0f, 0.0f, 0.0f}, TRAFFIC_LIGHT, 25.0f);
+    Node* n9 = network.AddNode({0.0f, 0.0f, 150.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n10 = network.AddNode({-150.0f, 0.0f, 0.0f}, SIMPLE_INTERSECTION, 20.0f);
     
     // Ajouter les segments de route (tous droits avec false)
     network.AddRoadSegment(n1, n2, 4, false);  // Route horizontale n1->n2

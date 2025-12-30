@@ -1,9 +1,10 @@
 #include "geometry/CurvedGeometry.h"
 #include "raymath.h"
 #include "rlgl.h"
+#include <cmath>
 
 CurvedGeometry::CurvedGeometry(Vector3 start, Vector3 control1, Vector3 control2, Vector3 end, float width)
-    : p0(start), p1(control1), p2(control2), p3(end), width(width), segments(30) {}
+    : p0(start), p1(control1), p2(control2), p3(end), width(width), segments(40) {}
 
 Vector3 CurvedGeometry::CalculateBezierPoint(float t) const {
     float u = 1 - t;
@@ -22,6 +23,7 @@ Vector3 CurvedGeometry::CalculateBezierPoint(float t) const {
 
 void CurvedGeometry::Draw() const {
     DrawCurvedSurface();
+    DrawCenterLine();
 }
 
 void CurvedGeometry::DrawCurvedSurface() const {
@@ -30,6 +32,8 @@ void CurvedGeometry::DrawCurvedSurface() const {
         float t = (float)i / segments;
         curvePoints.push_back(CalculateBezierPoint(t));
     }
+    
+    Color roadColor = {50, 50, 50, 255};
     
     for (size_t i = 0; i < curvePoints.size() - 1; i++) {
         Vector3 current = curvePoints[i];
@@ -45,13 +49,55 @@ void CurvedGeometry::DrawCurvedSurface() const {
         Vector3 p3 = Vector3Add(next, Vector3Scale(right, width/2));
         Vector3 p4 = Vector3Subtract(next, Vector3Scale(right, width/2));
         
+        // Surface de la route
         rlBegin(RL_QUADS);
-            rlColor4ub(50, 50, 50, 255);
+            rlColor4ub(roadColor.r, roadColor.g, roadColor.b, roadColor.a);
             rlVertex3f(p1.x, p1.y + 0.01f, p1.z);
             rlVertex3f(p2.x, p2.y + 0.01f, p2.z);
             rlVertex3f(p4.x, p4.y + 0.01f, p4.z);
             rlVertex3f(p3.x, p3.y + 0.01f, p3.z);
         rlEnd();
+    }
+    
+    // Lignes blanches sur les bords
+    for (size_t i = 0; i < curvePoints.size() - 1; i++) {
+        Vector3 current = curvePoints[i];
+        Vector3 next = curvePoints[i + 1];
+        
+        Vector3 direction = Vector3Normalize(Vector3Subtract(next, current));
+        Vector3 right = Vector3Normalize(Vector3CrossProduct({0, 1, 0}, direction));
+        
+        Vector3 leftCur = Vector3Add(current, Vector3Scale(right, width/2 - 0.1f));
+        Vector3 leftNext = Vector3Add(next, Vector3Scale(right, width/2 - 0.1f));
+        Vector3 rightCur = Vector3Subtract(current, Vector3Scale(right, width/2 - 0.1f));
+        Vector3 rightNext = Vector3Subtract(next, Vector3Scale(right, width/2 - 0.1f));
+        
+        leftCur.y += 0.02f;
+        leftNext.y += 0.02f;
+        rightCur.y += 0.02f;
+        rightNext.y += 0.02f;
+        
+        DrawLine3D(leftCur, leftNext, WHITE);
+        DrawLine3D(rightCur, rightNext, WHITE);
+    }
+}
+
+void CurvedGeometry::DrawCenterLine() const {
+    // Ligne centrale pointillée
+    std::vector<Vector3> curvePoints;
+    for (int i = 0; i <= segments; i++) {
+        float t = (float)i / segments;
+        curvePoints.push_back(CalculateBezierPoint(t));
+    }
+    
+    for (size_t i = 0; i < curvePoints.size() - 1; i += 3) {
+        if (i + 1 < curvePoints.size()) {
+            Vector3 p1 = curvePoints[i];
+            Vector3 p2 = curvePoints[i + 1];
+            p1.y += 0.02f;
+            p2.y += 0.02f;
+            DrawLine3D(p1, p2, WHITE);
+        }
     }
 }
 

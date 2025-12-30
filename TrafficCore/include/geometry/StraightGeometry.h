@@ -12,6 +12,7 @@ private:
     
     void DrawRoadSurface() const;
     void DrawLaneMarkings() const;
+    void DrawEdgeLines() const;  // Nouvelle méthode
     
 public:
     StraightGeometry(Vector3 start, Vector3 end, float width, int lanes);

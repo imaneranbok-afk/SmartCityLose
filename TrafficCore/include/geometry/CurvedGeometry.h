@@ -11,6 +11,7 @@ private:
     
     Vector3 CalculateBezierPoint(float t) const;
     void DrawCurvedSurface() const;
+    void DrawCenterLine() const;  // Nouvelle méthode
     
 public:
     CurvedGeometry(Vector3 start, Vector3 control1, Vector3 control2, Vector3 end, float width);
