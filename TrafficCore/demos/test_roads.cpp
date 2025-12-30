@@ -51,6 +51,10 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
+    Model fst = LoadModel("../assets/models/school_building.glb");
+    Vector3 fstPos = { 10.0f, 0.01f, -5.0f };
+    float fstScale = 0.1f;
+
     // Variables de contrôle de caméra
     float yaw = 0.0f;           // Rotation horizontale (gauche/droite)
     float pitch = -20.0f;       // Rotation verticale (haut/bas)
@@ -187,6 +191,7 @@ int main() {
         DrawLine3D({0, 0, 0}, {0, 50, 0}, GREEN);  // Axe Y
         DrawLine3D({0, 0, 0}, {0, 0, 50}, BLUE);   // Axe Z
         DrawPlane((Vector3){0.0f, -0.5f, 0.0f}, (Vector2){5000.0f, 5000.0f}, groundColor);
+        DrawModel(fst, fstPos, fstScale, WHITE);
 
         EndMode3D();
 
