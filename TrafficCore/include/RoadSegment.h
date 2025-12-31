@@ -13,12 +13,17 @@ private:
     int lanes;
     float laneWidth;
     std::unique_ptr<RoadGeometryStrategy> geometry;
+    bool visible = true; // Default to true
 
+public:
     struct Sidewalk {
         std::vector<Vector3> path;
         float width;
         float height;
     };
+    const std::vector<Sidewalk>& GetSidewalks() const { return sidewalks; }
+
+private:
     std::vector<Sidewalk> sidewalks;
 
     void CreateGeometry(bool useCurvedConnection);
@@ -32,6 +37,8 @@ public:
     RoadSegment(Node* start, Node* end, int lanes, bool useCurvedConnection = true);
 
     void Draw() const;
+    void SetVisible(bool v) { visible = v; }
+    bool IsVisible() const { return visible; }
 
     Node* GetStartNode() const { return startNode; }
     Node* GetEndNode() const { return endNode; }
@@ -41,6 +48,10 @@ public:
     RoadGeometryStrategy* GetGeometry() const { return geometry.get(); }
 
     Vector3 GetLanePosition(int laneIndex, float t) const;
+
+    // Retourne la progression le long du segment pour une position donnée (0..1),
+    // ou -1 si la position est trop éloignée du segment.
+    float ComputeProgressOnSegment(const Vector3& pos) const;
 };
 
 #endif

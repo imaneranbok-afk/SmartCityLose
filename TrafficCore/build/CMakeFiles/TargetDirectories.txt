@@ -1,7 +1,0 @@
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/smart_boukhalf.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/edit_cache.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/rebuild_cache.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/list_install_components.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/install.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/install/local.dir
-C:/Users/DELL/Smart-City/TrafficCore/build/CMakeFiles/install/strip.dir

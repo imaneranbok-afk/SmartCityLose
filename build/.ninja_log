@@ -1,0 +1,23 @@
+# ninja log v7
+25	202	7888600733723884	CMakeFiles/SmartCity.dir/TrafficCore/src/core/AssetManager.cpp.obj	957daa145422e94
+56	1093	7888600734058836	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Bus.cpp.obj	403604b33218d5aa
+63	2101	7888969283056518	CMakeFiles/SmartCity.dir/TrafficCore/src/Node.cpp.obj	d0262ab1c7a9c152
+48	1166	7888600733962254	CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj	aadef9cda6e3d85e
+37	1213	7888600733878575	CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj	20d8704bac39f3cb
+9	1317	7888600733556701	CMakeFiles/SmartCity.dir/TrafficCore/src/Intersection.cpp.obj	49c321c38f7f1268
+32	1338	7888600733783737	CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj	18b4969ff96ef10f
+238	2045	7888600736079284	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Car.cpp.obj	4b900db9dc6e42fc
+102	2507	7888969283478526	CMakeFiles/SmartCity.dir/TrafficCore/src/RoadSegment.cpp.obj	655079482b691735
+1237	2336	7888600746005969	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Truck.cpp.obj	c3a6da76ee34294
+1319	2592	7888600746790494	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj	32161d08188127c4
+1339	2622	7888600746860296	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj	c574a686ef674d86
+1141	2709	7888600744878250	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj	ba579e08260603ad
+1109	2762	7888600744628907	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj	45b5290576d36213
+126	2905	7888969283682458	CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj	ad6e83f36da5a1d5
+6	1747	7889152783749386	CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj	d9916d23bf7d3a76
+91	4652	7888969283328945	CMakeFiles/SmartCity.dir/TrafficCore/src/RoadNetwork.cpp.obj	2060d4acb55b19fc
+1747	1993	7889152801158048	SmartCity.exe	2f1480876531c28d
+8	1595	7889162763747362	CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj	d9916d23bf7d3a76
+1596	1934	7889162779629548	SmartCity.exe	2f1480876531c28d
+26	1838	7889164619048657	CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj	d9916d23bf7d3a76
+1839	2126	7889164637179966	SmartCity.exe	2f1480876531c28d

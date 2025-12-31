@@ -3,6 +3,7 @@
 #include "geometry/CurvedGeometry.h"
 #include "raymath.h"
 #include "rlgl.h"
+#include <cfloat>
 #include <cmath>
 
 RoadSegment::RoadSegment(Node* start, Node* end, int lanes, bool useCurvedConnection)
@@ -202,6 +203,7 @@ void RoadSegment::DrawSidewalk(const Sidewalk& sidewalk) const {
 }
 
 void RoadSegment::Draw() const {
+    if (!visible) return;
     if (geometry) geometry->Draw();
     
     // Dessiner les trottoirs
@@ -263,4 +265,46 @@ Vector3 RoadSegment::GetLanePosition(int laneIndex, float t) const {
     float laneOffset = -(GetWidth()/2.0f) + laneWidth * (0.5f + laneIndex);
 
     return Vector3Add(pos, Vector3Scale(right, laneOffset));
+}
+
+float RoadSegment::ComputeProgressOnSegment(const Vector3& pos) const {
+    if (!geometry) return -1.0f;
+    auto points = geometry->GetPoints();
+    if (points.size() < 2) return -1.0f;
+
+    // Project position onto polyline and compute distance along the polyline
+    float totalLen = 0.0f;
+    for (size_t i = 1; i < points.size(); ++i) totalLen += Vector3Distance(points[i-1], points[i]);
+    if (totalLen <= 0.001f) return -1.0f;
+
+    float bestDistSq = FLT_MAX;
+    float distanceAlong = 0.0f; // distance from start to projection
+    float accum = 0.0f;
+
+    for (size_t i = 0; i < points.size() - 1; ++i) {
+        Vector3 a = points[i];
+        Vector3 b = points[i+1];
+        Vector3 ab = Vector3Subtract(b, a);
+        Vector3 ap = Vector3Subtract(pos, a);
+        float abLenSq = Vector3LengthSqr(ab);
+        float t = 0.0f;
+        if (abLenSq > 0.0001f) {
+            t = Vector3DotProduct(ap, ab) / abLenSq;
+            if (t < 0.0f) t = 0.0f;
+            if (t > 1.0f) t = 1.0f;
+        }
+        Vector3 proj = Vector3Add(a, Vector3Scale(ab, t));
+        float d2 = Vector3DistanceSqr(proj, pos);
+        if (d2 < bestDistSq) {
+            bestDistSq = d2;
+            distanceAlong = accum + Vector3Distance(a, proj);
+        }
+        accum += Vector3Distance(a, b);
+    }
+
+    // If too far from the segment (e.g., off-road), return -1
+    float maxAcceptDist = GetWidth() * 0.75f + 5.0f;
+    if (bestDistSq > maxAcceptDist * maxAcceptDist) return -1.0f;
+
+    return distanceAlong / totalLen;
 }

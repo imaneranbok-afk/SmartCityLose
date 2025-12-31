@@ -1,0 +1,7 @@
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/SmartCity.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/edit_cache.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/rebuild_cache.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/list_install_components.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/install.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/install/local.dir
+C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/CMakeFiles/install/strip.dir

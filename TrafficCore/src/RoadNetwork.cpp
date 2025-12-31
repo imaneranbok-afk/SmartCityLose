@@ -1,5 +1,13 @@
 #include "RoadNetwork.h"
 #include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <limits>
+#include <cmath>
+#include <algorithm>
+#include <functional>
+#include "raymath.h"
 
 RoadNetwork::RoadNetwork() : nextNodeId(1) {}
 
@@ -47,11 +55,73 @@ Node* RoadNetwork::FindNodeById(int id) const {
     return nullptr;
 }
 
-std::vector<Node*> RoadNetwork::FindPath(Node* /*start*/, Node* /*end*/) const {
-    // TODO: Implémenter l'algorithme A* ou Dijkstra
-    // Pour l'instant, retourner un vecteur vide
-    std::vector<Node*> path;
-    return path;
+std::vector<Node*> RoadNetwork::FindPath(Node* start, Node* end) const {
+    if (!start || !end) return {};
+    if (start == end) return {start};
+
+    auto heuristic = [](Node* a, Node* b) {
+        Vector3 pa = a->GetPosition();
+        Vector3 pb = b->GetPosition();
+        return Vector3Distance(pa, pb);
+    };
+
+    struct PQItem {
+        Node* node;
+        float f;
+        bool operator>(const PQItem& o) const { return f > o.f; }
+    };
+
+    std::priority_queue<PQItem, std::vector<PQItem>, std::greater<PQItem>> openQueue;
+    std::unordered_map<Node*, Node*> cameFrom;
+    std::unordered_map<Node*, float> gScore;
+    std::unordered_set<Node*> closedSet;
+
+    gScore[start] = 0.0f;
+    openQueue.push(PQItem{start, heuristic(start, end)});
+
+    while (!openQueue.empty()) {
+        Node* current = openQueue.top().node;
+        openQueue.pop();
+
+        if (current == end) {
+            // Reconstruct path
+            std::vector<Node*> path;
+            Node* it = end;
+            while (it) {
+                path.push_back(it);
+                auto found = cameFrom.find(it);
+                if (found == cameFrom.end()) break;
+                it = found->second;
+            }
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
+        if (closedSet.find(current) != closedSet.end()) continue;
+        closedSet.insert(current);
+
+        // iterate neighbors via connected roads
+        for (RoadSegment* seg : current->GetConnectedRoads()) {
+            if (!seg) continue;
+            Node* neighbor = (seg->GetStartNode() == current) ? seg->GetEndNode() : seg->GetStartNode();
+            if (!neighbor) continue;
+
+            if (closedSet.find(neighbor) != closedSet.end()) continue;
+
+            float tentative_g = gScore[current] + Vector3Distance(current->GetPosition(), neighbor->GetPosition());
+
+            auto itg = gScore.find(neighbor);
+            if (itg == gScore.end() || tentative_g < itg->second) {
+                cameFrom[neighbor] = current;
+                gScore[neighbor] = tentative_g;
+                float f = tentative_g + heuristic(neighbor, end);
+                openQueue.push(PQItem{neighbor, f});
+            }
+        }
+    }
+
+    // No path found
+    return {};
 }
 
 void RoadNetwork::Update(float deltaTime) {

@@ -5,20 +5,18 @@
 #include "geometry/RoundaboutGeometry.h"
 #include <memory>
 
+class Vehicule;
+
 class Intersection {
+public:
+    Intersection(Node* node);
+    void Draw() const;
+    bool CanEnter(Vehicule* vehicle) const;
+    void Update(float deltaTime);
+
 private:
     Node* node;
     std::unique_ptr<RoundaboutGeometry> roundaboutGeometry;
-    
-public:
-    Intersection(Node* node);
-    
-    void Draw() const;
-    Node* GetNode() const { return node; }
-    
-    // Méthodes pour la gestion du trafic (à implémenter plus tard)
-    bool CanEnter(class Vehicle* vehicle) const;
-    void Update(float deltaTime);
 };
 
-#endif
+#endif // INTERSECTION_H

@@ -1,0 +1,3 @@
+C:/Users/admin/Desktop/Smart-City/TrafficCore/CMakeFiles/SmartCity.dir
+C:/Users/admin/Desktop/Smart-City/TrafficCore/CMakeFiles/edit_cache.dir
+C:/Users/admin/Desktop/Smart-City/TrafficCore/CMakeFiles/rebuild_cache.dir

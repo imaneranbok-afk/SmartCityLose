@@ -1,80 +1,37 @@
 cmake_minimum_required(VERSION 3.15)
-project(SmartBoukhalf VERSION 1.0 LANGUAGES CXX)
+project(SmartCity LANGUAGES CXX)
 
-# Configuration C++
+# C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Options de compilation
-if(MSVC)
-    add_compile_options(/W4)
-else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+# Raylib
+find_package(raylib CONFIG REQUIRED)
 
-# Trouver Raylib
-find_package(raylib 4.5 QUIET)
-if(NOT raylib_FOUND)
-    message(STATUS "Raylib not found, fetching from GitHub...")
-    include(FetchContent)
-    FetchContent_Declare(
-        raylib
-        GIT_REPOSITORY https://github.com/raysan5/raylib.git
-        GIT_TAG 4.5.0
-    )
-    FetchContent_MakeAvailable(raylib)
-endif()
-
-# Fichiers sources - Géométries
-set(GEOMETRY_SOURCES
-    src/geometry/StraightGeometry.cpp
-    src/geometry/CurvedGeometry.cpp
-    src/geometry/RoundaboutGeometry.cpp
+# Sources auto
+file(GLOB_RECURSE SOURCES
+    src/*.cpp
+    demos/*.cpp
 )
 
-# Fichiers sources - Réseau routier (SANS Vehicle)
-set(NETWORK_SOURCES
-    src/Node.cpp
-    src/RoadSegment.cpp
-    src/Intersection.cpp
-    src/RoadNetwork.cpp
-)
+# Debug : afficher les fichiers trouvés
+message(STATUS "Sources trouvées :")
+foreach(f ${SOURCES})
+    message(STATUS "  ${f}")
+endforeach()
 
-# Tous les fichiers sources
-set(ALL_SOURCES
-    ${GEOMETRY_SOURCES}
-    ${NETWORK_SOURCES}
-    demos/test_roads.cpp
-)
+# Executable
+add_executable(SmartCity ${SOURCES})
 
-# Créer l'exécutable
-add_executable(smart_boukhalf ${ALL_SOURCES})
-
-# Inclure les dossiers d'en-têtes
-target_include_directories(smart_boukhalf PRIVATE
+# Includes
+target_include_directories(SmartCity PRIVATE
     ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/include/geometry
 )
 
-# Lier avec Raylib
-target_link_libraries(smart_boukhalf PRIVATE raylib)
+# Link
+target_link_libraries(SmartCity PRIVATE raylib)
 
-# Configuration spécifique à la plateforme
+# Windows
 if(WIN32)
-    target_link_libraries(smart_boukhalf PRIVATE winmm)
-elseif(UNIX AND NOT APPLE)
-    target_link_libraries(smart_boukhalf PRIVATE m pthread dl rt)
-    find_package(X11 REQUIRED)
-    target_link_libraries(smart_boukhalf PRIVATE X11)
+    target_link_libraries(SmartCity PRIVATE winmm gdi32 opengl32)
 endif()
-
-# Installation
-install(TARGETS smart_boukhalf DESTINATION bin)
-
-# Afficher les informations de configuration
-message(STATUS "Smart Boukhalf Configuration:")
-message(STATUS "  C++ Standard: ${CMAKE_CXX_STANDARD}")
-message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "  Compiler: ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "  Test: Routes uniquement (pas de véhicules)")

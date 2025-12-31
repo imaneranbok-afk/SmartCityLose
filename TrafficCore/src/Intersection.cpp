@@ -1,4 +1,5 @@
 #include "Intersection.h"
+#include "Vehicules/Vehicule.h"
 
 Intersection::Intersection(Node* node) : node(node) {
     // Si c'est un rond-point, créer sa géométrie
@@ -21,7 +22,7 @@ void Intersection::Draw() const {
     }
 }
 
-bool Intersection::CanEnter(Vehicle* /*vehicle*/) const {
+bool Intersection::CanEnter(Vehicule* /*vehicle*/) const {
     // TODO: Implémenter la logique de priorité
     return true;
 }
