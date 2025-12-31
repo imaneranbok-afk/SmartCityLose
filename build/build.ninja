@@ -44,14 +44,6 @@ cmake_ninja_workdir = C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2
 
 build cmake_object_order_depends_target_SmartCity: phony || .
 
-build CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj: CXX_COMPILER__SmartCity_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/demos/boukhalf_simulation.cpp || cmake_object_order_depends_target_SmartCity
-  DEFINES = -D_WIN32_WINNT=0x0A00
-  DEP_FILE = CMakeFiles\SmartCity.dir\TrafficCore\demos\boukhalf_simulation.cpp.obj.d
-  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
-  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
-  OBJECT_DIR = CMakeFiles\SmartCity.dir
-  OBJECT_FILE_DIR = CMakeFiles\SmartCity.dir\TrafficCore\demos
-
 build CMakeFiles/SmartCity.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__SmartCity_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_SmartCity
   DEFINES = -D_WIN32_WINNT=0x0A00
   DEP_FILE = CMakeFiles\SmartCity.dir\TrafficCore\src\Intersection.cpp.obj.d
@@ -180,6 +172,14 @@ build CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj:
   OBJECT_DIR = CMakeFiles\SmartCity.dir
   OBJECT_FILE_DIR = CMakeFiles\SmartCity.dir\TrafficCore\src\vehicles
 
+build CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj: CXX_COMPILER__SmartCity_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/demos/boukhalf_simulation.cpp || cmake_object_order_depends_target_SmartCity
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\SmartCity.dir\TrafficCore\demos\boukhalf_simulation.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\SmartCity.dir
+  OBJECT_FILE_DIR = CMakeFiles\SmartCity.dir\TrafficCore\demos
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SmartCity
@@ -188,14 +188,824 @@ build CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj:
 #############################################
 # Link the executable SmartCity.exe
 
-build SmartCity.exe: CXX_EXECUTABLE_LINKER__SmartCity_ CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+build SmartCity.exe: CXX_EXECUTABLE_LINKER__SmartCity_ CMakeFiles/SmartCity.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/SmartCity.dir/TrafficCore/demos/boukhalf_simulation.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
   LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\SmartCity.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\DELL\Downloads\Smart-Citylose\Smart-Citylose (2)\Smart-Citylose\build" && C:\msys64\mingw64\bin\cmake.exe -E copy_directory "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/resources" "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/resources""
+  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\DELL\Downloads\Smart-Citylose\Smart-Citylose (2)\Smart-Citylose\build" && C:\msys64\mingw64\bin\cmake.exe -E copy_directory "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/assets" "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/assets""
   PRE_LINK = cd .
   TARGET_FILE = SmartCity.exe
   TARGET_IMPLIB = libSmartCity.dll.a
   TARGET_PDB = SmartCity.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_1_road_network
+
+
+#############################################
+# Order-only phony target for test_1_road_network
+
+build cmake_object_order_depends_target_test_1_road_network: phony || .
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\Intersection.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/Node.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\Node.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/RoadNetwork.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/RoadSegment.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/core/AssetManager.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/core/AssetManager.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\core\AssetManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\core
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Bus.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Bus.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\Bus.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Car.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Car.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\Car.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/CarFactory.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\CarFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/ModelManager.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\ModelManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/TrafficManager.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\TrafficManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Truck.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Truck.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\Truck.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Vehicule.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\Vehicule.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/VehiculeFactory.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles\VehiculeFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_1_road_network.dir/TrafficCore/tests/test_1_road_network.cpp.obj: CXX_COMPILER__test_1_road_network_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/tests/test_1_road_network.cpp || cmake_object_order_depends_target_test_1_road_network
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_1_road_network.dir\TrafficCore\tests\test_1_road_network.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_1_road_network.dir\TrafficCore\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_1_road_network
+
+
+#############################################
+# Link the executable test_1_road_network.exe
+
+build test_1_road_network.exe: CXX_EXECUTABLE_LINKER__test_1_road_network_ CMakeFiles/test_1_road_network.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/test_1_road_network.dir/TrafficCore/tests/test_1_road_network.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_1_road_network.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test_1_road_network.exe
+  TARGET_IMPLIB = libtest_1_road_network.dll.a
+  TARGET_PDB = test_1_road_network.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_2_intersections
+
+
+#############################################
+# Order-only phony target for test_2_intersections
+
+build cmake_object_order_depends_target_test_2_intersections: phony || .
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\Intersection.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/Node.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\Node.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/RoadNetwork.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/RoadSegment.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/core/AssetManager.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/core/AssetManager.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\core\AssetManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\core
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Bus.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Bus.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\Bus.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Car.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Car.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\Car.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/CarFactory.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\CarFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/ModelManager.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\ModelManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/TrafficManager.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\TrafficManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Truck.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Truck.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\Truck.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Vehicule.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\Vehicule.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/VehiculeFactory.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles\VehiculeFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_2_intersections.dir/TrafficCore/tests/test_2_intersections.cpp.obj: CXX_COMPILER__test_2_intersections_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/tests/test_2_intersections.cpp || cmake_object_order_depends_target_test_2_intersections
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_2_intersections.dir\TrafficCore\tests\test_2_intersections.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_2_intersections.dir\TrafficCore\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_2_intersections
+
+
+#############################################
+# Link the executable test_2_intersections.exe
+
+build test_2_intersections.exe: CXX_EXECUTABLE_LINKER__test_2_intersections_ CMakeFiles/test_2_intersections.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/test_2_intersections.dir/TrafficCore/tests/test_2_intersections.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_2_intersections.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test_2_intersections.exe
+  TARGET_IMPLIB = libtest_2_intersections.dll.a
+  TARGET_PDB = test_2_intersections.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_3_geometry_strategy
+
+
+#############################################
+# Order-only phony target for test_3_geometry_strategy
+
+build cmake_object_order_depends_target_test_3_geometry_strategy: phony || .
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\Intersection.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/Node.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\Node.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/RoadNetwork.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/RoadSegment.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/core/AssetManager.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/core/AssetManager.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\core\AssetManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\core
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Bus.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Bus.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\Bus.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Car.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Car.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\Car.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/CarFactory.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\CarFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/ModelManager.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\ModelManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/TrafficManager.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\TrafficManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Truck.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Truck.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\Truck.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Vehicule.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\Vehicule.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/VehiculeFactory.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles\VehiculeFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/tests/test_3_geometry_strategy.cpp.obj: CXX_COMPILER__test_3_geometry_strategy_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/tests/test_3_geometry_strategy.cpp || cmake_object_order_depends_target_test_3_geometry_strategy
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\tests\test_3_geometry_strategy.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_3_geometry_strategy.dir\TrafficCore\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_3_geometry_strategy
+
+
+#############################################
+# Link the executable test_3_geometry_strategy.exe
+
+build test_3_geometry_strategy.exe: CXX_EXECUTABLE_LINKER__test_3_geometry_strategy_ CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/test_3_geometry_strategy.dir/TrafficCore/tests/test_3_geometry_strategy.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_3_geometry_strategy.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test_3_geometry_strategy.exe
+  TARGET_IMPLIB = libtest_3_geometry_strategy.dll.a
+  TARGET_PDB = test_3_geometry_strategy.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_4_vehicle_factory
+
+
+#############################################
+# Order-only phony target for test_4_vehicle_factory
+
+build cmake_object_order_depends_target_test_4_vehicle_factory: phony || .
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\Intersection.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/Node.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\Node.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/RoadNetwork.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/RoadSegment.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/core/AssetManager.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/core/AssetManager.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\core\AssetManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\core
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Bus.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Bus.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\Bus.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Car.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Car.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\Car.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/CarFactory.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\CarFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/ModelManager.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\ModelManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/TrafficManager.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\TrafficManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Truck.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Truck.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\Truck.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Vehicule.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\Vehicule.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/VehiculeFactory.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles\VehiculeFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/tests/test_4_vehicle_factory.cpp.obj: CXX_COMPILER__test_4_vehicle_factory_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/tests/test_4_vehicle_factory.cpp || cmake_object_order_depends_target_test_4_vehicle_factory
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\tests\test_4_vehicle_factory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_4_vehicle_factory.dir\TrafficCore\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_4_vehicle_factory
+
+
+#############################################
+# Link the executable test_4_vehicle_factory.exe
+
+build test_4_vehicle_factory.exe: CXX_EXECUTABLE_LINKER__test_4_vehicle_factory_ CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/test_4_vehicle_factory.dir/TrafficCore/tests/test_4_vehicle_factory.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_4_vehicle_factory.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test_4_vehicle_factory.exe
+  TARGET_IMPLIB = libtest_4_vehicle_factory.dll.a
+  TARGET_PDB = test_4_vehicle_factory.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_5_complete_simulation
+
+
+#############################################
+# Order-only phony target for test_5_complete_simulation
+
+build cmake_object_order_depends_target_test_5_complete_simulation: phony || .
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/Intersection.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Intersection.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\Intersection.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/Node.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/Node.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\Node.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/RoadNetwork.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadNetwork.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\RoadNetwork.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/RoadSegment.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/RoadSegment.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\RoadSegment.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/core/AssetManager.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/core/AssetManager.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\core\AssetManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\core
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/CurvedGeometry.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry\CurvedGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/RoundaboutGeometry.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry\RoundaboutGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/geometry/StraightGeometry.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry\StraightGeometry.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\geometry
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Bus.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Bus.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\Bus.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Car.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Car.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\Car.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/CarFactory.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\CarFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/ModelManager.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\ModelManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/TrafficManager.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\TrafficManager.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Truck.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Truck.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\Truck.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/Vehicule.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\Vehicule.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/src/vehicles/VehiculeFactory.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles\VehiculeFactory.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\src\vehicles
+
+build CMakeFiles/test_5_complete_simulation.dir/TrafficCore/tests/test_5_complete_simulation.cpp.obj: CXX_COMPILER__test_5_complete_simulation_unscanned_ C$:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose$ (2)/Smart-Citylose/TrafficCore/tests/test_5_complete_simulation.cpp || cmake_object_order_depends_target_test_5_complete_simulation
+  DEFINES = -D_WIN32_WINNT=0x0A00
+  DEP_FILE = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\tests\test_5_complete_simulation.cpp.obj.d
+  FLAGS = -std=gnu++17 -IC:/msys64/mingw64/bin/../include
+  INCLUDES = -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/src" -I"C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/TrafficCore/include"
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles\test_5_complete_simulation.dir\TrafficCore\tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_5_complete_simulation
+
+
+#############################################
+# Link the executable test_5_complete_simulation.exe
+
+build test_5_complete_simulation.exe: CXX_EXECUTABLE_LINKER__test_5_complete_simulation_ CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/Intersection.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/Node.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/RoadNetwork.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/RoadSegment.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/core/AssetManager.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/CurvedGeometry.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/RoundaboutGeometry.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/geometry/StraightGeometry.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Bus.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Car.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/CarFactory.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/ModelManager.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/TrafficManager.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Truck.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/Vehicule.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/src/vehicles/VehiculeFactory.cpp.obj CMakeFiles/test_5_complete_simulation.dir/TrafficCore/tests/test_5_complete_simulation.cpp.obj | C$:/msys64/mingw64/lib/libraylib.dll.a
+  LINK_LIBRARIES = C:/msys64/mingw64/lib/libraylib.dll.a  -lwinmm  -lgdi32  -lopengl32  -lshell32  -LC:/msys64/mingw64/bin/../lib -lraylib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\test_5_complete_simulation.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = test_5_complete_simulation.exe
+  TARGET_IMPLIB = libtest_5_complete_simulation.dll.a
+  TARGET_PDB = test_5_complete_simulation.exe.dbg
 
 
 #############################################
@@ -267,6 +1077,16 @@ build install/strip: phony CMakeFiles/install/strip.util
 
 build SmartCity: phony SmartCity.exe
 
+build test_1_road_network: phony test_1_road_network.exe
+
+build test_2_intersections: phony test_2_intersections.exe
+
+build test_3_geometry_strategy: phony test_3_geometry_strategy.exe
+
+build test_4_vehicle_factory: phony test_4_vehicle_factory.exe
+
+build test_5_complete_simulation: phony test_5_complete_simulation.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -275,7 +1095,7 @@ build SmartCity: phony SmartCity.exe
 #############################################
 # Folder: C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build
 
-build all: phony SmartCity.exe
+build all: phony SmartCity.exe test_1_road_network.exe test_2_intersections.exe test_3_geometry_strategy.exe test_4_vehicle_factory.exe test_5_complete_simulation.exe
 
 # =============================================================================
 # Built-in targets

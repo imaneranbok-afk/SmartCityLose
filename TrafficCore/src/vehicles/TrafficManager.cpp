@@ -26,14 +26,41 @@ void TrafficManager::update(float deltaTime) {
             // sort descending so first is front-most
             std::sort(onSeg.begin(), onSeg.end(), [](const auto& a, const auto& b){ return a.second > b.second; });
 
-            // assign leaders: vehicle i's leader is vehicle i-1 (the one in front)
-            Vehicule* prev = nullptr;
-            for (size_t i = 0; i < onSeg.size(); ++i) {
-                Vehicule* v = onSeg[i].first;
-                if (i == 0) {
-                    v->setLeader(nullptr);
-                } else {
-                    v->setLeader(onSeg[i-1].first);
+            // assign leaders within segment
+            for (size_t i = 1; i < onSeg.size(); ++i) {
+                onSeg[i].first->setLeader(onSeg[i-1].first);
+            }
+
+            // CROSS-SEGMENT LEADER DETECTION
+            // For the front-most vehicle on this segment, find the next segment in its path 
+            // and check if there's a vehicle there that should be followed.
+            if (!onSeg.empty()) {
+                Vehicule* frontV = onSeg[0].first;
+                frontV->setLeader(nullptr); // Default for front-most
+
+                // Check for a leader in the next segment of the itinerary
+                // We'd need access to the vehicle's current segment index or just proximity.
+                // Simplified Proximity Check as fallback for all vehicles to catch cross-segment issues:
+                for (auto& otherPtr : vehicles) {
+                    Vehicule* other = otherPtr.get();
+                    if (other == frontV) continue;
+
+                    Vector3 toOther = Vector3Subtract(other->getPosition(), frontV->getPosition());
+                    float dist = Vector3Length(toOther);
+                    
+                    if (dist < 20.0f) { // Proximity threshold
+                        Vector3 dir = {
+                            sinf(frontV->getRotationAngle() * DEG2RAD),
+                            0,
+                            cosf(frontV->getRotationAngle() * DEG2RAD)
+                        };
+                        
+                        float dot = Vector3DotProduct(Vector3Normalize(toOther), dir);
+                        if (dot > 0.8f) { // If other is roughly in front
+                             frontV->setLeader(other);
+                             break;
+                        }
+                    }
                 }
             }
         }

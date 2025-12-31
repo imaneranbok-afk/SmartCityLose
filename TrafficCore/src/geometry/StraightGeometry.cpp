@@ -27,10 +27,10 @@ void StraightGeometry::DrawRoadSurface() const {
     // Surface d'asphalte
     rlBegin(RL_QUADS);
         rlColor4ub(50, 50, 50, 255);
-        rlVertex3f(p1.x, p1.y + 0.01f, p1.z);
-        rlVertex3f(p2.x, p2.y + 0.01f, p2.z);
-        rlVertex3f(p4.x, p4.y + 0.01f, p4.z);
-        rlVertex3f(p3.x, p3.y + 0.01f, p3.z);
+        rlVertex3f(p1.x, p1.y + 0.02f, p1.z);
+        rlVertex3f(p2.x, p2.y + 0.02f, p2.z);
+        rlVertex3f(p4.x, p4.y + 0.02f, p4.z);
+        rlVertex3f(p3.x, p3.y + 0.02f, p3.z);
     rlEnd();
 }
 
@@ -44,15 +44,15 @@ void StraightGeometry::DrawEdgeLines() const {
     // Ligne gauche
     Vector3 leftStart = Vector3Add(start, Vector3Scale(right, width/2 - 0.1f));
     Vector3 leftEnd = Vector3Add(end, Vector3Scale(right, width/2 - 0.1f));
-    leftStart.y += 0.02f;
-    leftEnd.y += 0.02f;
+    leftStart.y += 0.04f;
+    leftEnd.y += 0.04f;
     DrawLine3D(leftStart, leftEnd, WHITE);
     
     // Ligne droite
     Vector3 rightStart = Vector3Subtract(start, Vector3Scale(right, width/2 - 0.1f));
     Vector3 rightEnd = Vector3Subtract(end, Vector3Scale(right, width/2 - 0.1f));
-    rightStart.y += 0.02f;
-    rightEnd.y += 0.02f;
+    rightStart.y += 0.04f;
+    rightEnd.y += 0.04f;
     DrawLine3D(rightStart, rightEnd, WHITE);
 }
 
@@ -84,8 +84,8 @@ void StraightGeometry::DrawLaneMarkings() const {
             Vector3 dash1 = Vector3Lerp(lineStart, lineEnd, t1);
             Vector3 dash2 = Vector3Lerp(lineStart, lineEnd, t2);
             
-            dash1.y += 0.02f;
-            dash2.y += 0.02f;
+            dash1.y += 0.04f;
+            dash2.y += 0.04f;
             
             DrawLine3D(dash1, dash2, WHITE);
         }

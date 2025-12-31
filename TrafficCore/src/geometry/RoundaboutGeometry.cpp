@@ -36,10 +36,10 @@ void RoundaboutGeometry::DrawRoadCircle() const {
         float cos2 = cosf(angle2);
         float sin2 = sinf(angle2);
         
-        Vector3 outer1 = {center.x + outerRadius * cos1, center.y + 0.01f, center.z + outerRadius * sin1};
-        Vector3 inner1 = {center.x + innerRadius * cos1, center.y + 0.01f, center.z + innerRadius * sin1};
-        Vector3 outer2 = {center.x + outerRadius * cos2, center.y + 0.01f, center.z + outerRadius * sin2};
-        Vector3 inner2 = {center.x + innerRadius * cos2, center.y + 0.01f, center.z + innerRadius * sin2};
+        Vector3 outer1 = {center.x + outerRadius * cos1, center.y + 0.02f, center.z + outerRadius * sin1};
+        Vector3 inner1 = {center.x + innerRadius * cos1, center.y + 0.02f, center.z + innerRadius * sin1};
+        Vector3 outer2 = {center.x + outerRadius * cos2, center.y + 0.02f, center.z + outerRadius * sin2};
+        Vector3 inner2 = {center.x + innerRadius * cos2, center.y + 0.02f, center.z + innerRadius * sin2};
         
         rlVertex3f(outer1.x, outer1.y, outer1.z);
         rlVertex3f(inner1.x, inner1.y, inner1.z);
@@ -60,12 +60,12 @@ void RoundaboutGeometry::DrawRoadCircle() const {
         
         Vector3 p1 = {
             center.x + outerRadius * cosf(angle1),
-            center.y + 0.03f,
+            center.y + 0.05f,
             center.z + outerRadius * sinf(angle1)
         };
         Vector3 p2 = {
             center.x + outerRadius * cosf(angle2),
-            center.y + 0.03f,
+            center.y + 0.05f,
             center.z + outerRadius * sinf(angle2)
         };
         rlVertex3f(p1.x, p1.y, p1.z);
@@ -97,12 +97,12 @@ void RoundaboutGeometry::DrawCentralIsland() const {
         
         Vector3 p1 = {
             center.x + innerRadius * cosf(angle1),
-            center.y + 0.03f,
+            center.y + 0.05f,
             center.z + innerRadius * sinf(angle1)
         };
         Vector3 p2 = {
             center.x + innerRadius * cosf(angle2),
-            center.y + 0.03f,
+            center.y + 0.05f,
             center.z + innerRadius * sinf(angle2)
         };
         rlVertex3f(p1.x, p1.y, p1.z);
@@ -121,12 +121,12 @@ void RoundaboutGeometry::DrawRoadMarkings() const {
         
         Vector3 p1 = {
             center.x + midRadius * cosf(angle1),
-            center.y + 0.02f,
+            center.y + 0.04f,
             center.z + midRadius * sinf(angle1)
         };
         Vector3 p2 = {
             center.x + midRadius * cosf(angle2),
-            center.y + 0.02f,
+            center.y + 0.04f,
             center.z + midRadius * sinf(angle2)
         };
         
@@ -144,7 +144,7 @@ void RoundaboutGeometry::DrawDirectionalArrows() const {
         
         Vector3 arrowPos = {
             center.x + arrowRadius * cosf(angle),
-            center.y + 0.03f,
+            center.y + 0.05f,
             center.z + arrowRadius * sinf(angle)
         };
         

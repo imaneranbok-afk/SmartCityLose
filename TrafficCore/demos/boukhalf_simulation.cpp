@@ -32,6 +32,7 @@ struct CameraState {
     float yaw, pitch;
     int followedVehicleId;
     bool smoothTransition;
+    bool cinematicMode; // Nouvelle propriété
 };
 
 // ==================== GLOBALS ====================
@@ -235,7 +236,7 @@ std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::v
                        
                        points.push_back({
                            center.x + r * cosf(a),
-                           center.y + 0.1f, 
+                           center.y, 
                            center.z + r * sinf(a)
                        });
                    }
@@ -262,6 +263,7 @@ void InitCamera() {
     g_camState.pitch = 0.0f;
     g_camState.followedVehicleId = -1;
     g_camState.smoothTransition = true;
+    g_camState.cinematicMode = false;
 }
 
 // ==================== CAMERA UPDATE ====================
@@ -285,6 +287,11 @@ void UpdateCamera(TrafficManager& trafficMgr, float dt) {
         }
            
         }
+    }
+    
+    // Toggle Mode Cinématique
+    if (IsKeyPressed(KEY_C)) {
+        g_camState.cinematicMode = !g_camState.cinematicMode;
     }
     
     // Reset caméra
@@ -317,6 +324,19 @@ void UpdateCameraOrbital(float dt) {
         g_camState.angles.x -= delta.x * 0.005f;
         g_camState.angles.y = Clamp(g_camState.angles.y - delta.y * 0.005f, 
                                      0.1f, PI/2 - 0.1f);
+    }
+    
+    // Rotation Verticale (Pitch) avec Clavier (O/P)
+    if (IsKeyDown(KEY_O)) {
+        g_camState.angles.y = Clamp(g_camState.angles.y + 1.5f * dt, 0.1f, PI/2 - 0.1f);
+    }
+    if (IsKeyDown(KEY_P)) {
+        g_camState.angles.y = Clamp(g_camState.angles.y - 1.5f * dt, 0.1f, PI/2 - 0.1f);
+    }
+    
+    // Animation Cinématique (Rotation automatique lente)
+    if (g_camState.cinematicMode) {
+        g_camState.angles.x += 0.5f * dt;
     }
     
     // Déplacement WASD/ZQSD (Pan)
@@ -879,6 +899,30 @@ int main() {
             car->normalizeSize(10.0f); // FORCE UNIFORM LARGE SIZE
             trafficMgr.addVehicle(std::move(car));
         }
+
+        // Supprimer véhicule (Touche K)
+        if (IsKeyPressed(KEY_K) && trafficMgr.getVehicleCount() > 0) {
+            auto& vehicles = trafficMgr.getVehiclesCheck();
+            bool removed = false;
+            
+            // Si on suit un véhicule, on supprime celui-là
+            if (g_camState.mode == CAM_FOLLOW_VEHICLE && g_camState.followedVehicleId != -1) {
+                for (auto it = vehicles.begin(); it != vehicles.end(); ++it) {
+                    Car* carPtr = dynamic_cast<Car*>(it->get());
+                    if (carPtr && carPtr->getCarId() == g_camState.followedVehicleId) {
+                        vehicles.erase(it);
+                        g_camState.followedVehicleId = -1; // Reset selection
+                        removed = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Sinon on supprime le dernier ajouté
+            if (!removed && !vehicles.empty()) {
+                vehicles.pop_back();
+            }
+        }
         
         // Update
         if (!paused) {
@@ -1004,20 +1048,24 @@ int main() {
         DrawText(paused ? "PAUSED" : "RUNNING", 20, 100, 16, paused ? RED : GREEN);
         DrawCameraInfo();
         
-        DrawUIPanel(10, 200, 350, 280, "CONTROLS");
+        DrawUIPanel(10, 200, 350, 320, "CONTROLS");
         DrawText("SPACE     : Pause/Resume", 20, 225, 13, WHITE);
-        DrawText("V         : Add Vehicle", 20, 243, 13, WHITE);
+        DrawText("V / K     : Add / Delete Vehicle", 20, 243, 13, WHITE);
         DrawText("R         : Reset Camera", 20, 261, 13, WHITE);
-        DrawText("", 20, 279, 13, WHITE);
-        DrawText("1 / 2 / 3 : Camera Modes", 20, 297, 13, YELLOW);
-        DrawText("  1 = Orbital (RTS)", 20, 313, 12, LIGHTGRAY);
-        DrawText("  2 = Free Fly (FPS)", 20, 327, 12, LIGHTGRAY);
-        DrawText("  3 = Follow Vehicle", 20, 341, 12, LIGHTGRAY);
-        DrawText("", 20, 359, 13, WHITE);
-        DrawText("WASD/ZQSD : Move", 20, 377, 13, GREEN);
-        DrawText("SHIFT     : Speed Boost", 20, 395, 13, GREEN);
-        DrawText("E / Arrows: Zoom/Rotate", 20, 413, 13, GREEN);
-        DrawText("TAB       : Next Vehicle", 20, 431, 13, GREEN);
+        DrawText("C         : Cinematic Mode (Auto-Orbit)", 20, 279, 13, SKYBLUE);
+        
+        DrawText("1 / 2 / 3 : Camera Modes", 20, 310, 13, YELLOW);
+        DrawText("  1 = Orbital (RTS)", 20, 326, 12, LIGHTGRAY);
+        DrawText("  2 = Free Fly (FPS)", 20, 340, 12, LIGHTGRAY);
+        DrawText("  3 = Follow Vehicle", 20, 354, 12, LIGHTGRAY);
+        
+        DrawText("KEYBOARD CONTROLS", 20, 385, 13, YELLOW);
+        DrawText("WASD/ZQSD : Move Focus (Orbital)", 20, 403, 12, GREEN);
+        DrawText("ARROWS    : Rotate (H)", 20, 418, 12, GREEN);
+        DrawText("O / P     : Rotate (V / Pitch)", 20, 433, 12, GREEN);
+        DrawText("E / Q     : Zoom In / Out", 20, 448, 12, GREEN);
+        DrawText("TAB       : Switch Follow Vehicle", 20, 463, 12, GREEN);
+        DrawText("SHIFT     : Speed Boost", 20, 478, 12, GREEN);
         
         DrawFPS(1450, 870);
         DrawText("FIFA World Cup 2030", 1350, 20, 16, MAROON);

@@ -12,6 +12,7 @@ protected:
     float rotationAngle;
     float rotationOffset; // New: to correct model orientation
     float scale;
+    float groundingOffset; // New: Y-offset to sit on ground
     Model model;
     Color debugColor;
 

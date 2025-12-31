@@ -16,14 +16,15 @@ Vehicule::Vehicule(Vector3 startPos, float maxSpd, float accel, Model mdl, float
     // traffic defaults
     state = State::DRIVING;
     leader = nullptr;
-    desiredSpacing = 6.0f; // Increased from 2.5f to prevent merging (Model size is large)
-    minSpacing = 2.5f;     // Increased from 1.0f
-    timeHeadway = 1.5f;    // Increased from 0.6f (Standard safety gap)
+    desiredSpacing = 15.0f; // Increased from 6.0f for safer following
+    minSpacing = 10.0f;     // Increased from 2.5f to accommodate trucks/buses
+    timeHeadway = 1.8f;    // Increased from 1.5f for smoother braking
     // IDM defaults
     idmAccel = 1.5f;
     idmDecel = 4.0f;       // Increased braking power from 2.0f
     idmDelta = 4.0f;
     rotationOffset = 0.0f;
+    groundingOffset = 0.0f;
 }
 
 Vehicule::~Vehicule() {
@@ -130,7 +131,9 @@ void Vehicule::draw() {
         DrawCube(position, 2.0f, 2.0f, 4.0f, debugColor);
         DrawCubeWires(position, 2.1f, 2.1f, 4.1f, BLACK);
     } else {
-        DrawModelEx(model, position, {0,1,0}, rotationAngle + rotationOffset, {scale,scale,scale}, WHITE);
+        Vector3 renderPos = position;
+        renderPos.y += 0.02f + groundingOffset; // Lift above lowered road surface (0.02f)
+        DrawModelEx(model, renderPos, {0,1,0}, rotationAngle + rotationOffset, {scale,scale,scale}, WHITE);
     }
 }
 
@@ -153,6 +156,9 @@ void Vehicule::normalizeSize(float targetLength) {
     } else {
         scale = targetLength / maxDim;
     }
+
+    // Dynamic grounding calculation
+    groundingOffset = -box.min.y * scale;
     
     // Minimum scale clamp to avoid invisibility
     if (scale < 0.5f) scale = 0.5f;

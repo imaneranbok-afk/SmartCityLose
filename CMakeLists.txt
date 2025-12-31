@@ -30,32 +30,41 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/TrafficCore/include
 )
 
-# Détection automatique des fichiers sources
-file(GLOB_RECURSE SOURCES 
-    "${CMAKE_SOURCE_DIR}/TrafficCore/src/*.cpp"
-    "${CMAKE_SOURCE_DIR}/TrafficCore/demos/*.cpp"
-)
+# Détection des fichiers sources
+file(GLOB_RECURSE CORE_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/src/*.cpp")
+file(GLOB DEMO_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/demos/*.cpp")
+file(GLOB TEST_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/tests/*.cpp")
 
 # Affiche la liste des fichiers sources trouvés
 message(STATUS "Fichiers sources détectés :")
-foreach(source_file ${SOURCES})
-    message(STATUS "- ${source_file}")
+foreach(source_file ${CORE_SOURCES})
+    message(STATUS "- CORE: ${source_file}")
+endforeach()
+foreach(source_file ${DEMO_SOURCES})
+    message(STATUS "- DEMO: ${source_file}")
 endforeach()
 
-# Créer l'exécutable
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-# Lier les bibliothèques
+# Créer l'exécutable principal (Demo)
+add_executable(${PROJECT_NAME} ${CORE_SOURCES} ${DEMO_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${RAYLIB_LIB})
 
 # Options de compilation pour Windows
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PRIVATE _WIN32_WINNT=0x0A00)
-    target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
-    target_link_libraries(${PROJECT_NAME} PRIVATE gdi32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE opengl32)
-    target_link_libraries(${PROJECT_NAME} PRIVATE shell32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE winmm gdi32 opengl32 shell32)
 endif()
+
+# --- AJOUT DES TESTS ---
+foreach(test_file ${TEST_SOURCES})
+    get_filename_component(test_name ${test_file} NAME_WE)
+    add_executable(${test_name} ${CORE_SOURCES} ${test_file})
+    target_link_libraries(${test_name} PRIVATE ${RAYLIB_LIB})
+    
+    if(WIN32)
+        target_compile_definitions(${test_name} PRIVATE _WIN32_WINNT=0x0A00)
+        target_link_libraries(${test_name} PRIVATE winmm gdi32 opengl32 shell32)
+    endif()
+endforeach()
 
 # Configuration de l'installation
 install(TARGETS ${PROJECT_NAME}
@@ -69,11 +78,12 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/resources)
 
 # Copier les ressources (sons, images, etc.)
 file(GLOB_RECURSE RESOURCE_FILES 
-    "${CMAKE_SOURCE_DIR}/TrafficCore/resources/*.wav"
-    "${CMAKE_SOURCE_DIR}/TrafficCore/resources/*.mp3"
-    "${CMAKE_SOURCE_DIR}/TrafficCore/resources/*.ogg"
-    "${CMAKE_SOURCE_DIR}/TrafficCore/resources/*.png"
-    "${CMAKE_SOURCE_DIR}/TrafficCore/resources/*.jpg"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.wav"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.mp3"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.ogg"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.png"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.jpg"
+    "${CMAKE_SOURCE_DIR}/TrafficCore/assets/*.glb"
 )
 
 foreach(resource_file ${RESOURCE_FILES})
@@ -84,7 +94,7 @@ endforeach()
 # Configurer la commande pour copier les ressources après la compilation
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/TrafficCore/resources
-    $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    ${CMAKE_SOURCE_DIR}/TrafficCore/assets
+    $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
     COMMENT "Copie des ressources dans le répertoire de sortie"
 )

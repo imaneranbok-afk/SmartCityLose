@@ -52,10 +52,10 @@ void CurvedGeometry::DrawCurvedSurface() const {
         // Surface de la route
         rlBegin(RL_QUADS);
             rlColor4ub(roadColor.r, roadColor.g, roadColor.b, roadColor.a);
-            rlVertex3f(p1.x, p1.y + 0.01f, p1.z);
-            rlVertex3f(p2.x, p2.y + 0.01f, p2.z);
-            rlVertex3f(p4.x, p4.y + 0.01f, p4.z);
-            rlVertex3f(p3.x, p3.y + 0.01f, p3.z);
+            rlVertex3f(p1.x, p1.y + 0.02f, p1.z);
+            rlVertex3f(p2.x, p2.y + 0.02f, p2.z);
+            rlVertex3f(p4.x, p4.y + 0.02f, p4.z);
+            rlVertex3f(p3.x, p3.y + 0.02f, p3.z);
         rlEnd();
     }
     
@@ -72,10 +72,10 @@ void CurvedGeometry::DrawCurvedSurface() const {
         Vector3 rightCur = Vector3Subtract(current, Vector3Scale(right, width/2 - 0.1f));
         Vector3 rightNext = Vector3Subtract(next, Vector3Scale(right, width/2 - 0.1f));
         
-        leftCur.y += 0.02f;
-        leftNext.y += 0.02f;
-        rightCur.y += 0.02f;
-        rightNext.y += 0.02f;
+        leftCur.y += 0.04f;
+        leftNext.y += 0.04f;
+        rightCur.y += 0.04f;
+        rightNext.y += 0.04f;
         
         DrawLine3D(leftCur, leftNext, WHITE);
         DrawLine3D(rightCur, rightNext, WHITE);
@@ -94,8 +94,8 @@ void CurvedGeometry::DrawCenterLine() const {
         if (i + 1 < curvePoints.size()) {
             Vector3 p1 = curvePoints[i];
             Vector3 p2 = curvePoints[i + 1];
-            p1.y += 0.02f;
-            p2.y += 0.02f;
+            p1.y += 0.04f;
+            p2.y += 0.04f;
             DrawLine3D(p1, p2, WHITE);
         }
     }
