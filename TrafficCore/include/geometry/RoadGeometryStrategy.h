@@ -13,6 +13,7 @@ public:
     virtual Vector3 GetCenter() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetLength() const = 0;
+    virtual void GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const = 0;
 };
 
 #endif

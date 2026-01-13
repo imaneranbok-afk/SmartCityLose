@@ -31,6 +31,9 @@ public:
     float GetInnerRadius() const { return innerRadius; }
     
     Vector3 GetLanePosition(int laneIndex, float t, int totalLanes) const;
+
+    // Conform to RoadGeometryStrategy interface
+    void GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const override;
 };
 
 #endif

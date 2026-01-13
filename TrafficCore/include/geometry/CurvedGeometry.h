@@ -20,6 +20,7 @@ public:
     Vector3 GetCenter() const override;
     float GetWidth() const override { return width; }
     float GetLength() const override;
+    void GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const override;
 };
 
 #endif

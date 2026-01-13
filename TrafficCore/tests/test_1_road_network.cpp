@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include "RoadNetwork.h"
+#include "PathFinder.h"
 
 void test_nodes() {
     RoadNetwork network;
@@ -39,7 +40,8 @@ void test_pathfinding() {
     network.AddRoadSegment(n1, n2, 2);
     network.AddRoadSegment(n2, n3, 2);
     
-    auto path = network.FindPath(n1, n3);
+    PathFinder pf(&network);
+    auto path = pf.FindPath(n1, n3);
     assert(path.size() == 3);
     assert(path[0] == n1);
     assert(path[1] == n2);

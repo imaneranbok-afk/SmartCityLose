@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose
+# Install script for directory: C:/Users/hp/Desktop/lastversion/Smart-Citylose
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/SmartCity.exe")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/hp/Desktop/lastversion/Smart-Citylose/build/SmartCity.exe")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/SmartCity.exe" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/SmartCity.exe")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -50,7 +50,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/install_local_manifest.txt"
+  file(WRITE "C:/Users/hp/Desktop/lastversion/Smart-Citylose/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -66,6 +66,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/DELL/Downloads/Smart-Citylose/Smart-Citylose (2)/Smart-Citylose/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/hp/Desktop/lastversion/Smart-Citylose/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

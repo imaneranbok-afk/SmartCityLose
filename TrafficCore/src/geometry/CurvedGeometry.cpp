@@ -122,3 +122,27 @@ float CurvedGeometry::GetLength() const {
     }
     return length;
 }
+
+void CurvedGeometry::GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const {
+    pos = CalculateBezierPoint(t);
+    
+    float u = 1 - t;
+    float uu = u * u;
+    float tt = t * t;
+    
+    Vector3 d0 = Vector3Subtract(p1, p0);
+    Vector3 d1 = Vector3Subtract(p2, p1);
+    Vector3 d2 = Vector3Subtract(p3, p2);
+    
+    Vector3 term1 = Vector3Scale(d0, 3 * uu);
+    Vector3 term2 = Vector3Scale(d1, 6 * u * t);
+    Vector3 term3 = Vector3Scale(d2, 3 * tt);
+    
+    Vector3 sum = Vector3Add(Vector3Add(term1, term2), term3);
+    
+    if (Vector3LengthSqr(sum) > 0.0001f) {
+        tangent = Vector3Normalize(sum);
+    } else {
+        tangent = Vector3Normalize(Vector3Subtract(p3, p0));
+    }
+}

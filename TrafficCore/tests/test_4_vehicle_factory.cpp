@@ -6,19 +6,25 @@
 void test_vehicle_creation() {
     Vector3 pos = {0, 0, 0};
     
-    Vehicule* car = VehiculeFactory::createVehicule(VehiculeType::CAR, pos);
+    auto car = VehiculeFactory::createVehicule(VehiculeType::CAR, pos);
     assert(car != nullptr);
     assert(car->getPosition().x == pos.x);
     
-    Vehicule* bus = VehiculeFactory::createVehicule(VehiculeType::BUS, pos);
+    auto bus = VehiculeFactory::createVehicule(VehiculeType::BUS, pos);
     assert(bus != nullptr);
     
-    Vehicule* truck = VehiculeFactory::createVehicule(VehiculeType::TRUCK, pos);
+    auto truck = VehiculeFactory::createVehicule(VehiculeType::TRUCK, pos);
     assert(truck != nullptr);
-    
-    delete car;
-    delete bus;
-    delete truck;
+
+    // Additional quick checks for the new interface
+    auto b2 = std::make_unique<Bus>(pos); // default loads assets/models/bus bleu.glb
+    assert(b2 != nullptr && b2->isLargeVehicle());
+
+    auto t2 = std::make_unique<Truck>(pos); // default loads assets/models/truck.glb
+    assert(t2 != nullptr && t2->isLargeVehicle());
+
+    auto c2 = std::make_unique<Car>(pos, "assets/models/Taxi (1).glb");
+    assert(c2 != nullptr);
     
     std::cout << "Vehicle creation tests passed!" << std::endl;
 }

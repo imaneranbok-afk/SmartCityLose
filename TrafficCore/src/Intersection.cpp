@@ -22,11 +22,26 @@ void Intersection::Draw() const {
     }
 }
 
-bool Intersection::CanEnter(Vehicule* /*vehicle*/) const {
-    // TODO: Implémenter la logique de priorité
+bool Intersection::CanEnter(Vehicule* /*v*/) const {
+    // Pour une simulation fluide, on autorise l'entrée multiple.
+    // La régulation se fait par la distance de sécurité individuelle des véhicules.
     return true;
 }
 
+void Intersection::Enter(Vehicule* v) {
+    if (v && std::find(occupants.begin(), occupants.end(), v) == occupants.end()) {
+        occupants.push_back(v);
+    }
+}
+
+void Intersection::Exit(Vehicule* v) {
+    auto it = std::find(occupants.begin(), occupants.end(), v);
+    if (it != occupants.end()) {
+        occupants.erase(it);
+    }
+}
+
 void Intersection::Update(float /*deltaTime*/) {
-    // TODO: Gérer les feux tricolores, priorités, etc.
+    // Nettoyage de sécurité : si un véhicule est détruit ou invalide
+    // (Dans une vraie simu, faudrait vérifier si v est toujours vivant)
 }

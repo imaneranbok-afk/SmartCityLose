@@ -246,25 +246,7 @@ float RoadSegment::GetLength() const {
 }
 
 Vector3 RoadSegment::GetLanePosition(int laneIndex, float t) const {
-    if (!geometry || laneIndex < 0 || laneIndex >= lanes) return {0,0,0};
-    
-    auto points = geometry->GetPoints();
-    size_t n = points.size();
-    if (n < 2) return points[0];
-
-    float total = (n-1) * t;
-    size_t idx = (size_t)total;
-    float localT = total - idx;
-
-    if (idx >= n-1) idx = n-2;
-
-    Vector3 pos = Vector3Lerp(points[idx], points[idx+1], localT);
-
-    Vector3 dir = Vector3Normalize(Vector3Subtract(points[idx+1], points[idx]));
-    Vector3 right = Vector3Normalize(Vector3CrossProduct({0,1,0}, dir));
-    float laneOffset = -(GetWidth()/2.0f) + laneWidth * (0.5f + laneIndex);
-
-    return Vector3Add(pos, Vector3Scale(right, laneOffset));
+    return GetTrafficLanePosition(laneIndex, t);
 }
 
 float RoadSegment::ComputeProgressOnSegment(const Vector3& pos) const {
@@ -308,3 +290,77 @@ float RoadSegment::ComputeProgressOnSegment(const Vector3& pos) const {
 
     return distanceAlong / totalLen;
 }
+
+// Core Direction Logic
+Vector3 RoadSegment::GetDirection() const {
+    Vector3 dir = Vector3Subtract(endNode->GetPosition(), startNode->GetPosition());
+    return Vector3Normalize(dir);
+}
+
+// Implémentation stricte des 4 voies (2 allers, 2 retours)
+Vector3 RoadSegment::GetTrafficLanePosition(int laneIndex, float t) const {
+    if (geometry) {
+        Vector3 pos, tangent;
+        geometry->GetPositionAndTangent(t, pos, tangent);
+        
+        // Normale droite (Y-up) : {dir.z, 0, -dir.x}
+        // Assuming tangent is normalized.
+        Vector3 rightNormal = { tangent.z, 0.0f, -tangent.x };
+        
+        // Use the actual road visual width for positioning to center vehicles
+        float effectiveWidth = this->laneWidth; 
+        float offset = 0.0f;
+
+        // Logique des voies
+        if (lanes <= 2) {
+            // Configuration 2 voies (1 aller, 1 retour)
+            // Lane 0 doit être "Intérieure Aller" (proche du centre) pour rester sur la route (Largeur totale = 2*W)
+            // Zone route : 0 à W. Centre : 0.5 * W.
+            switch(laneIndex) {
+                case 0: offset =  0.5f * effectiveWidth; break; // Unique voie Aller
+                case 1: offset = -0.5f * effectiveWidth; break; // Unique voie Retour
+                default: offset = 0.5f * effectiveWidth; break;
+            }
+        } else {
+            // Configuration 4 voies ou plus (Standard)
+            switch(laneIndex) {
+                case 0: offset =  1.5f * effectiveWidth; break; // Extérieure Aller
+                case 1: offset =  0.5f * effectiveWidth; break; // Intérieure Aller
+                case 2: offset = -0.5f * effectiveWidth; break; // Intérieure Retour
+                case 3: offset = -1.5f * effectiveWidth; break; // Extérieure Retour
+                default: offset = 0.0f; break;
+            }
+        }
+
+        return Vector3Add(pos, Vector3Scale(rightNormal, offset));
+    }
+
+    // Fallback if geometry is missing (legacy/straight)
+    Vector3 start = startNode->GetPosition();
+    Vector3 end = endNode->GetPosition();
+    Vector3 dir = Vector3Normalize(Vector3Subtract(end, start));
+    
+    Vector3 rightNormal = { dir.z, 0.0f, -dir.x };
+    
+    float effectiveWidth = this->laneWidth;
+    float offset = 0.0f;
+
+    if (lanes <= 2) {
+         switch(laneIndex) {
+            case 0: offset =  0.5f * effectiveWidth; break;
+            case 1: offset = -0.5f * effectiveWidth; break;
+            default: offset = 0.5f * effectiveWidth; break;
+        }
+    } else {
+        switch(laneIndex) {
+            case 0: offset =  1.5f * effectiveWidth; break;
+            case 1: offset =  0.5f * effectiveWidth; break;
+            case 2: offset = -0.5f * effectiveWidth; break;
+            case 3: offset = -1.5f * effectiveWidth; break;
+        }
+    }
+
+    Vector3 basePos = Vector3Add(start, Vector3Scale(dir, GetLength() * t));
+    return Vector3Add(basePos, Vector3Scale(rightNormal, offset));
+}
+

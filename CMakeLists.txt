@@ -32,8 +32,21 @@ include_directories(
 
 # Détection des fichiers sources
 file(GLOB_RECURSE CORE_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/src/*.cpp")
+# Exclude Spawner.cpp since the functionality has been merged into TrafficManager
+list(FILTER CORE_SOURCES EXCLUDE REGEX ".*Spawner\\.cpp$")
+# Ensure PathFinder.cpp is included even if the glob was cached earlier
+list(APPEND CORE_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/src/PathFinder.cpp")
+list(APPEND CORE_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/src/MapLoader.cpp")
 file(GLOB DEMO_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/demos/*.cpp")
 file(GLOB TEST_SOURCES "${CMAKE_SOURCE_DIR}/TrafficCore/tests/*.cpp")
+
+# Option to enable deterministic spawner module
+option(ENABLE_SPAWNER "Enable deterministic vehicle Spawner" ON)
+if(ENABLE_SPAWNER)
+    message(STATUS "Spawner module: ENABLED")
+else()
+    message(STATUS "Spawner module: DISABLED")
+endif()
 
 # Affiche la liste des fichiers sources trouvés
 message(STATUS "Fichiers sources détectés :")
@@ -45,7 +58,17 @@ foreach(source_file ${DEMO_SOURCES})
 endforeach()
 
 # Créer l'exécutable principal (Demo)
-add_executable(${PROJECT_NAME} ${CORE_SOURCES} ${DEMO_SOURCES})
+# Exclure le fichier de simulation spécifique des sources globales pour éviter les conflits de main()
+list(FILTER DEMO_SOURCES EXCLUDE REGEX "boukhalf_simulation.cpp")
+
+# Créer l'exécutable principal (SmartCity) basé sur boukhalf_simulation uniquement
+add_executable(${PROJECT_NAME} ${CORE_SOURCES} "${CMAKE_SOURCE_DIR}/TrafficCore/demos/boukhalf_simulation.cpp")
+
+# Propagate features based on options
+if(ENABLE_SPAWNER)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_SPAWNER=1)
+endif()
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${RAYLIB_LIB})
 
 # Options de compilation pour Windows
@@ -72,6 +95,7 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
 )
+
 
 # Créer un répertoire pour les ressources
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/resources)

@@ -110,3 +110,8 @@ Vector3 StraightGeometry::GetCenter() const {
 float StraightGeometry::GetLength() const {
     return Vector3Distance(start, end);
 }
+
+void StraightGeometry::GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const {
+    pos = Vector3Lerp(start, end, t);
+    tangent = Vector3Normalize(Vector3Subtract(end, start));
+}

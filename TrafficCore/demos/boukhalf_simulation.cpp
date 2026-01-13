@@ -2,7 +2,7 @@
 #include <utility>
 #include "raylib.h"
 #include "raymath.h"
-#include "Vehicules/CarFactory.h"
+#include "Vehicules/VehiculeFactory.h"
 #include "Vehicules/TrafficManager.h"
 #include "Vehicules/Car.h"
 #include "RoadNetwork.h"
@@ -10,12 +10,60 @@
 #include <memory>
 #include <iostream>
 #include <algorithm>
+#include <cctype>
 #include <vector>
 #include <string>
 #include <cmath>
 #include <filesystem>
 #include "Vehicules/ModelManager.h"
+#include "PathFinder.h"
+#include <map>
+#include "MapLoader.h"
+#include <random>
+#include <ctime>
 
+// Small Catmull-Rom spline helper for smoothing paths used by GeneratePathPoints
+static Vector3 demoCatmullRomInterpolate(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t) {
+    float t2 = t * t;
+    float t3 = t2 * t;
+    Vector3 out;
+    out.x = 0.5f * ((2.0f * p1.x) + (-p0.x + p2.x) * t + (2.0f*p0.x - 5.0f*p1.x + 4.0f*p2.x - p3.x) * t2 + (-p0.x + 3.0f*p1.x - 3.0f*p2.x + p3.x) * t3);
+    out.y = 0.5f * ((2.0f * p1.y) + (-p0.y + p2.y) * t + (2.0f*p0.y - 5.0f*p1.y + 4.0f*p2.y - p3.y) * t2 + (-p0.y + 3.0f*p1.y - 3.0f*p2.y + p3.y) * t3);
+    out.z = 0.5f * ((2.0f * p1.z) + (-p0.z + p2.z) * t + (2.0f*p0.z - 5.0f*p1.z + 4.0f*p2.z - p3.z) * t2 + (-p0.z + 3.0f*p1.z - 3.0f*p2.z + p3.z) * t3);
+    return out;
+}
+
+static std::vector<Vector3> demoCatmullRomChain(const std::vector<Vector3>& pts, int samplesPerSeg) {
+    std::vector<Vector3> out;
+    if (pts.size() < 2) return pts;
+    std::vector<Vector3> p;
+    p.push_back(pts.front());
+    for (auto &v : pts) p.push_back(v);
+    p.push_back(pts.back());
+    for (size_t i = 0; i + 3 < p.size(); ++i) {
+        const Vector3 &p0 = p[i];
+        const Vector3 &p1 = p[i+1];
+        const Vector3 &p2 = p[i+2];
+        const Vector3 &p3 = p[i+3];
+        for (int s = 0; s < samplesPerSeg; ++s) {
+            float t = s / (float)samplesPerSeg;
+            out.push_back(demoCatmullRomInterpolate(p0,p1,p2,p3,t));
+        }
+    }
+    out.push_back(pts.back());
+    return out;
+}
+
+// ==================== CONFIGURATION STRUCTURE ====================
+struct SimulationConfig {
+    std::map<std::string, int> vehicleCounts;
+    bool isConfigured = false;
+
+    // Selected model paths for each vehicle kind (absolute or relative)
+    std::string selectedModelCar;
+    std::string selectedModelBus;
+    std::string selectedModelTruck;
+};
 // ==================== CAMERA TYPES ====================
 enum CameraControlMode {  // ← ÉTAIT "CameraMode"
     CAM_ORBITAL,
@@ -45,12 +93,17 @@ void UpdateCamera(TrafficManager& trafficMgr, float dt);
 void UpdateCameraOrbital(float dt);
 void UpdateCameraFreeFly(float dt);
 void UpdateCameraFollow(TrafficManager& trafficMgr, float dt);
+// Forward declaration for config loader initializer
+void InitializeNetworkFromConfig(RoadNetwork& network);
 void DrawEnvironment();
-void DrawUIPanel(int x, int y, int width, int height, const char* title);
 void DrawCameraInfo();
+void DrawUIPanel(int x, int y, int width, int height, const char* title);
+SimulationConfig ShowConfigurationMenu();
 
 CarModel StringToCarModel(const std::string& name);
 void CreateTestNetwork(RoadNetwork& network);
+std::vector<Vector3> GenerateTreesOnSidewalks(const RoadNetwork& network, float spacing);
+std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::vector<Node*>& nodePath, int samplesPerSegment);
 
 // ==================== HELPER: PATH GENERATION ====================
 std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::vector<Node*>& nodePath, int samplesPerSegment) {
@@ -86,22 +139,15 @@ std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::v
         bool isReverse = (connecting->GetEndNode() == startNode);
 
         if (lanes >= 2) {
-             if (!isReverse) {
-                 // Forward -> Use Right side (High indices)
-                 // e.g. 4 lanes: 2, 3
-                 int minLane = lanes / 2;
-                 int maxLane = lanes - 1;
-                 laneIdx = GetRandomValue(minLane, maxLane);
-             } else {
-                 // Reverse -> Use Left side (Low indices)
-                 // e.g. 4 lanes: 0, 1
-                 // Note: Left side of segment is Right side for Reverse Driver.
-                 int minLane = 0;
-                 int maxLane = (lanes / 2) - 1;
-                 laneIdx = GetRandomValue(minLane, maxLane);
-             }
-        } else {
-             laneIdx = 0;
+            if (!isReverse) {
+                // Deterministic choice: use the first of the forward lanes (minLane)
+                int minLane = lanes / 2;
+                laneIdx = minLane;
+            } else {
+                // Deterministic choice for reverse: use the first of reverse lanes (minLane == 0)
+                int minLane = 0;
+                laneIdx = minLane;
+            }
         }
 
         // --- ROUNDABOUT ENTRY/EXIT LOGIC ---
@@ -172,19 +218,6 @@ std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::v
                     int nextLane = nextSeg->GetLanes() > 0 ? nextSeg->GetLanes()/2 : 0;
                     if (nextIsReverse) nextLane = nextSeg->GetLanes() - 1;
                     
-                    Vector3 pExit = nextIsReverse ? nextSeg->GetLanePosition(nextLane, 1.0f) // start of reverse is t=1? No, t=1 is End. Reverse means Start is End.
-                                                  : nextSeg->GetLanePosition(nextLane, 0.0f);
-                                                  
-                    // Wait, GetLanePosition(t) reference:
-                    // If isReverse (Start=EndNode, End=StartNode), we drive Front->Back? 
-                    // Let's stick to:
-                    // Current Path: A -> R. Segment A-R. End of A-R is at R.
-                    // Next Path: R -> B. Segment R-B. Start of R-B is at R.
-                    
-                    // Actually, let's just take the point.
-                    // Entry point is Last point of current segment.
-                    // Exit point is First point of NEXT segment (which we haven't generated yet, but we can query).
-                    
                     Vector3 exitP = nextIsReverse ? nextSeg->GetLanePosition(nextLane, 1.0f) 
                                                   : nextSeg->GetLanePosition(nextLane, 0.0f);
 
@@ -192,58 +225,47 @@ std::vector<Vector3> GeneratePathPoints(const RoadNetwork& network, const std::v
                     float angleEntry = atan2f(pEntry.z - center.z, pEntry.x - center.x);
                     float angleExit = atan2f(exitP.z - center.z, exitP.x - center.x);
                     
-                    // Normalize angles
-                   while (angleExit <= angleEntry) angleExit += 2*PI;
-                   // Wait, for Counter-Clockwise (CCW), Exit should be > Entry.
-                   // If Exit < Entry, we add 2PI.
+                    while (angleExit <= angleEntry) angleExit += 2*PI;
                    
-                   // However, coordinate system matters. 
-                   // Raylib: Z is forward. X is right.
-                   // atan2(z, x).
-                   
-                   // Let's just interpolate along the circle.
-                   // Ensure we go the "short" way? No, roundabouts are one-way. 
-                   // MUST go CCW. 
-                   // So we force Delta > 0.
-                   
-                   float diff = angleExit - angleEntry;
-                   // If we are "just right" of the exit, we have to do a full circle? No.
-                   // If Exit is -0.1 and Entry is 0.1. Exit < Entry. 
-                   // We want to go 0.1 -> ... -> PI -> -PI -> -0.1.
-                   // This is CCW? 
-                   // 0 to PI is CCW.
-                   
-                   // Let's use logic:
-                   // Target Angle = angleExit.
-                   // Current Angle = angleEntry.
-                   // We increment angle.
-                   if (diff < 0) diff += 2*PI;
-                   
-                   // If diff is too small (e.g. going straight?), treat as straight?
-                   // No, always arc.
-                   
-                   int arcSamples = (int)(diff * 10); // heuristic
-                   if (arcSamples < 5) arcSamples = 5;
-                   
-                   for (int k = 1; k < arcSamples; ++k) {
-                       float t = k / (float)arcSamples;
-                       float a = angleEntry + diff * t;
-                       // Radius might need to be adjusted to lane centerline?
-                       // Interpolate radius from entry to exit distance
-                       float distEntry = Vector3Distance(pEntry, center);
-                       float distExit  = Vector3Distance(exitP, center);
-                       float r = distEntry * (1.0f - t) + distExit * t;
-                       
-                       points.push_back({
-                           center.x + r * cosf(a),
-                           center.y, 
-                           center.z + r * sinf(a)
-                       });
-                   }
+                    float diff = angleExit - angleEntry;
+                    if (diff < 0) diff += 2*PI;
+                    
+                    int arcSamples = (int)(diff * 30); // higher resolution for smoothness
+                    if (arcSamples < 8) arcSamples = 8;
+
+                    // Determine roundabout lane parameters
+                    const float laneWidth = 16.0f; // match RoadSegment default
+                    int incomingLanes = connecting->GetLanes() > 0 ? connecting->GetLanes() : 1;
+                    int outgoingLanes = nextSeg->GetLanes() > 0 ? nextSeg->GetLanes() : 1;
+                    int totalRoundaboutLanes = std::max(2, std::max(incomingLanes, outgoingLanes));
+
+                    // Map incoming lane index to a roundabout lane index (clamp)
+                    int roundaboutLaneIdx = laneIdx;
+                    if (roundaboutLaneIdx < 0) roundaboutLaneIdx = 0;
+                    if (roundaboutLaneIdx >= totalRoundaboutLanes) roundaboutLaneIdx = totalRoundaboutLanes - 1;
+
+                    float roadWidth = totalRoundaboutLanes * laneWidth;
+                    float laneOffset = -roadWidth / 2.0f + roadWidth * (0.5f + roundaboutLaneIdx) / (float)totalRoundaboutLanes;
+
+                    // Compute radius for the chosen roundabout lane
+                    float outerR = radius; // outer radius from node
+                    float laneRadius = outerR - laneOffset;
+
+                    for (int k = 1; k < arcSamples; ++k) {
+                        float t = k / (float)arcSamples;
+                        float a = angleEntry + diff * t;
+                        points.push_back({
+                            center.x + laneRadius * cosf(a),
+                            center.y,
+                            center.z + laneRadius * sinf(a)
+                        });
+                    }
                 }
             }
         }
     }
+    // Smooth path for fluid turns
+    points = demoCatmullRomChain(points, samplesPerSegment);
     return points;
 }
 
@@ -563,30 +585,21 @@ void DrawCameraInfo() {
 
 // ==================== STRING → ENUM ====================
 CarModel StringToCarModel(const std::string& name) {
-    if (name == "Dodge Challenger") return CarModel::DODGE_CHALLENGER;
-    if (name == "Chevrolet Camaro") return CarModel::CHEVROLET_CAMARO;
-    if (name == "Nissan GTR") return CarModel::NISSAN_GTR;
-    if (name == "SUV") return CarModel::SUV_MODEL;
     if (name == "Taxi") return CarModel::TAXI;
-    if (name == "Truck") return CarModel::TRUCK;
-    if (name == "Bus") return CarModel::BUS;
-    if (name == "Ferrari") return CarModel::FERRARI;
-    if (name == "Tesla") return CarModel::TESLA;
     if (name == "Convertible") return CarModel::CONVERTIBLE;
     if (name == "CarBlanc") return CarModel::CAR_BLANC;
-    if (name == "Red Car") return CarModel::GENERIC_RED;
     if (name == "Model 1") return CarModel::GENERIC_MODEL_1;
     return CarModel::CAR_BLANC; // Default safe fallback
 }
 
 // ==================== ROAD NETWORK SETUP ====================
 void CreateTestNetwork(RoadNetwork& network) {
-    Node* n1 = network.AddNode({1050.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n2 = network.AddNode({700.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n3 = network.AddNode({700.0f, 0.0f, -250.0f}, SIMPLE_INTERSECTION, 8.0f);
-    Node* n4 = network.AddNode({350.0f, 0.0f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n5 = network.AddNode({350.0f, 0.1f, 0.0f}, ROUNDABOUT, 60.0f);
-    Node* n6 = network.AddNode({0.0f, 0.1f, -450.0f}, ROUNDABOUT, 60.0f);
+    Node* n1 = network.AddNode({1050.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n2 = network.AddNode({700.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n3 = network.AddNode({700.0f, 0.2f, -250.0f}, SIMPLE_INTERSECTION, 8.0f);
+    Node* n4 = network.AddNode({350.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n5 = network.AddNode({350.0f, 0.2f, 0.0f}, ROUNDABOUT, 60.0f);
+    Node* n6 = network.AddNode({0.0f, 0.2f, -450.0f}, ROUNDABOUT, 60.0f);
     Node* n7 = network.AddNode({0.0f, 0.0f, -600.0f}, SIMPLE_INTERSECTION, 20.0f);
     Node* n8 = network.AddNode({0.0f, 0.0f, 0.0f}, TRAFFIC_LIGHT, 25.0f);
     Node* n9 = network.AddNode({0.0f, 0.0f, 150.0f}, SIMPLE_INTERSECTION, 20.0f);
@@ -601,17 +614,14 @@ void CreateTestNetwork(RoadNetwork& network) {
     network.AddRoadSegment(n2, n4, 4, false);
     network.AddRoadSegment(n4, n2, 4, false)->SetVisible(false); // Reverse
     
-    network.AddRoadSegment(n4, n5, 4, false); // Roundabout entry
-    // network.AddRoadSegment(n5, n4, 4, false)->SetVisible(false); // Exit? Roundabouts are usually one-way entry/exit logic.
-    // Let's assume n4->n5 is entry. n5->n4 is exit?
-    // User wants "tourne sur le rond point".
-    // Usually Roundabout (n5) connects to other exits.
+    network.AddRoadSegment(n4, n5, 4, false); 
+    network.AddRoadSegment(n5, n4, 4, false)->SetVisible(false);
     
     network.AddRoadSegment(n4, n6, 4, false);
     network.AddRoadSegment(n6, n4, 4, false)->SetVisible(false);
     
     network.AddRoadSegment(n7, n6, 4, false);
-    network.AddRoadSegment(n6, n7, 4, false)->SetVisible(false); // Reverse
+    network.AddRoadSegment(n6, n7, 4, false)->SetVisible(false); 
     
     network.AddRoadSegment(n6, n8, 4, false);
     network.AddRoadSegment(n8, n6, 4, false)->SetVisible(false);
@@ -623,6 +633,7 @@ void CreateTestNetwork(RoadNetwork& network) {
     network.AddRoadSegment(n10, n8, 4, false)->SetVisible(false);
     
     network.AddRoadSegment(n5, n8, 4, false);
+    network.AddRoadSegment(n8, n5, 4, false)->SetVisible(false); // Link N8 -> N5 added
     
     network.AddIntersection(n1);
     network.AddIntersection(n2);
@@ -669,16 +680,261 @@ std::vector<Vector3> GenerateTreesOnSidewalks(const RoadNetwork& network, float 
     return positions;
 }
 
-// ==================== MAIN ====================
+
+// ==================== CONFIGURATION MENU ====================
+SimulationConfig ShowConfigurationMenu() {
+    SimulationConfig config;
+    
+    // Only present three vehicle types in the UI
+    std::vector<std::string> vehicleTypes = { "Car", "Bus", "Truck" };
+
+    // Initialiser les compteurs à 0
+    for (const auto& type : vehicleTypes) config.vehicleCounts[type] = 0;
+
+    // Prepare model lists by scanning assets/models (filter into categories)
+    std::vector<std::string> carModels;
+    std::vector<std::string> busModels;
+    std::vector<std::string> truckModels;
+    std::vector<std::string> candidateDirs = {
+        "assets/models",
+        "../assets/models",
+        "../../assets/models",
+        "../TrafficCore/assets/models",
+        "TrafficCore/assets/models"
+    };
+    for (const auto& dir : candidateDirs) {
+        try {
+            if (!std::filesystem::exists(dir)) continue;
+            for (const auto& entry : std::filesystem::directory_iterator(dir)) {
+                if (!entry.is_regular_file()) continue;
+                auto path = entry.path();
+                if (path.has_extension() && (path.extension() == ".glb" || path.extension() == ".GLB")) {
+                    std::string filename = path.filename().string();
+                    std::string lower = filename;
+                    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c){ return std::tolower(c); });
+
+                    // Classify by keyword in filename while excluding common non-vehicle assets
+                    if (lower.find("bus") != std::string::npos && lower.find("busstop") == std::string::npos && lower.find("bus_station") == std::string::npos && lower.find("abribus") == std::string::npos && lower.find("stop") == std::string::npos) {
+                        // Accept many bus model filenames
+                        busModels.push_back(std::filesystem::absolute(path).string());
+                    } else if (lower.find("truck") != std::string::npos) {
+                        truckModels.push_back(std::filesystem::absolute(path).string());
+                    } else if (lower.find("taxi") != std::string::npos || lower.find("car") != std::string::npos || lower.find("convertible") != std::string::npos || lower.find("model") != std::string::npos) {
+                        // Broad car classifier to include more car models (but may include other vehicles named 'car')
+                        carModels.push_back(std::filesystem::absolute(path).string());
+                    }
+                }
+            }
+            break;
+        } catch (...) {}
+    }
+
+    // Variables UI
+    int screenWidth = 1200;
+    int screenHeight = 800;
+    InitWindow(screenWidth, screenHeight, "Configuration de la Simulation");
+    SetTargetFPS(60);
+    
+    int startY = 150;
+    int lineHeight = 110; // slightly larger to fit model selector
+    int sliderWidth = 300;
+    int sliderHeight = 20;
+    
+    bool startSimulation = false;
+
+    // Persistent selected model indices (scoped to the menu)
+    static int selectedCarIndex = 0;
+    static int selectedBusIndex = 0;
+    static int selectedTruckIndex = 0;
+    
+    while (!WindowShouldClose() && !startSimulation) {
+        BeginDrawing();
+        ClearBackground(Color{30, 30, 40, 255});
+        
+        // Titre
+        DrawText("CONFIGURATION DE LA SIMULATION", 
+                 screenWidth/2 - MeasureText("CONFIGURATION DE LA SIMULATION", 40)/2, 
+                 40, 40, RAYWHITE);
+        
+DrawText("Choisissez le nombre de vehicules pour chaque type:", 
+             screenWidth/2 - MeasureText("Choisissez le nombre de vehicules pour chaque type:", 20)/2, 
+             100, 20, LIGHTGRAY);
+
+    int totalVehicles = 0;
+
+    for (size_t i = 0; i < vehicleTypes.size(); ++i) {
+        const std::string& type = vehicleTypes[i];
+        int y = startY + (int)i * lineHeight;
+        int x = 100;
+
+        DrawText(type.c_str(), x, y + 5, 24, RAYWHITE);
+
+        Rectangle sliderBg = {(float)(x + 250), (float)y, (float)sliderWidth, (float)sliderHeight};
+        Rectangle sliderFill = {
+            (float)(x + 250),
+            (float)y,
+            (float)(sliderWidth * config.vehicleCounts[type] / 50.0f),
+            (float)sliderHeight
+        };
+        DrawRectangleRec(sliderBg, DARKGRAY);
+        DrawRectangleRec(sliderFill, SKYBLUE);
+        DrawRectangleLinesEx(sliderBg, 2, LIGHTGRAY);
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            Vector2 mousePos = GetMousePosition();
+            if (CheckCollisionPointRec(mousePos, sliderBg)) {
+                float relativeX = mousePos.x - sliderBg.x;
+                config.vehicleCounts[type] = (int)((relativeX / sliderWidth) * 50);
+                if (config.vehicleCounts[type] < 0) config.vehicleCounts[type] = 0;
+                if (config.vehicleCounts[type] > 50) config.vehicleCounts[type] = 50;
+            }
+        }
+
+        DrawText(TextFormat("%d", config.vehicleCounts[type]), x + 250 + sliderWidth + 20, y + 5, 24, YELLOW);
+
+        int modelY = y + 30;
+        std::string modelName = "(none)";
+        if (type == "Car") {
+            if (!carModels.empty()) { selectedCarIndex = std::clamp(selectedCarIndex, 0, (int)carModels.size()-1); modelName = std::filesystem::path(carModels[selectedCarIndex]).filename().string(); }
+        } else if (type == "Bus") {
+            if (!busModels.empty()) { selectedBusIndex = std::clamp(selectedBusIndex, 0, (int)busModels.size()-1); modelName = std::filesystem::path(busModels[selectedBusIndex]).filename().string(); }
+        } else if (type == "Truck") {
+            if (!truckModels.empty()) { selectedTruckIndex = std::clamp(selectedTruckIndex, 0, (int)truckModels.size()-1); modelName = std::filesystem::path(truckModels[selectedTruckIndex]).filename().string(); }
+        }
+
+        DrawText("Model:", x, modelY, 18, LIGHTGRAY);
+        DrawText(modelName.c_str(), x + 80, modelY, 18, RAYWHITE);
+
+        Rectangle prevBtn = {(float)(x + 200), (float)modelY, 30, 20};
+        Rectangle nextBtn = {(float)(x + 240), (float)modelY, 30, 20};
+        DrawRectangleRec(prevBtn, DARKGRAY); DrawRectangleRec(nextBtn, DARKGRAY);
+        DrawText("<", prevBtn.x + 8, prevBtn.y + 2, 14, RAYWHITE); DrawText(">", nextBtn.x + 8, nextBtn.y + 2, 14, RAYWHITE);
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            Vector2 mp = GetMousePosition();
+            if (CheckCollisionPointRec(mp, prevBtn)) { if (type == "Car" && !carModels.empty()) selectedCarIndex = (selectedCarIndex - 1 + (int)carModels.size()) % carModels.size(); if (type == "Bus" && !busModels.empty()) selectedBusIndex = (selectedBusIndex - 1 + (int)busModels.size()) % busModels.size(); if (type == "Truck" && !truckModels.empty()) selectedTruckIndex = (selectedTruckIndex - 1 + (int)truckModels.size()) % truckModels.size(); }
+            if (CheckCollisionPointRec(mp, nextBtn)) { if (type == "Car" && !carModels.empty()) selectedCarIndex = (selectedCarIndex + 1) % carModels.size(); if (type == "Bus" && !busModels.empty()) selectedBusIndex = (selectedBusIndex + 1) % busModels.size(); if (type == "Truck" && !truckModels.empty()) selectedTruckIndex = (selectedTruckIndex + 1) % truckModels.size(); }
+        }
+
+        totalVehicles += config.vehicleCounts[type];
+    }
+
+    DrawText(TextFormat("TOTAL: %d vehicules", totalVehicles), 
+             screenWidth/2 - 100, startY + vehicleTypes.size() * lineHeight + 20, 28, GOLD);
+        
+        // Boutons
+        int btnY = startY + vehicleTypes.size() * lineHeight + 80;
+        Rectangle btnStart = {(float)(screenWidth/2 - 250), (float)btnY, 200, 50};
+        Rectangle btnReset = {(float)(screenWidth/2 + 50), (float)btnY, 200, 50};
+        
+        // Bouton Démarrer
+        Color startColor = (totalVehicles > 0) ? GREEN : DARKGRAY;
+        if (CheckCollisionPointRec(GetMousePosition(), btnStart) && totalVehicles > 0) {
+            startColor = LIME;
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                // Store selected model paths into config
+                if (!carModels.empty()) config.selectedModelCar = carModels[std::clamp(selectedCarIndex, 0, (int)carModels.size()-1)];
+                if (!busModels.empty()) config.selectedModelBus = busModels[std::clamp(selectedBusIndex, 0, (int)busModels.size()-1)];
+                if (!truckModels.empty()) config.selectedModelTruck = truckModels[std::clamp(selectedTruckIndex, 0, (int)truckModels.size()-1)];
+
+                // Print selection to console for debugging model loading
+                std::cout << "Selected Models -> Car: '" << (config.selectedModelCar.empty() ? std::string("(none)") : config.selectedModelCar) 
+                          << "', Bus: '" << (config.selectedModelBus.empty() ? std::string("(none)") : config.selectedModelBus) 
+                          << "', Truck: '" << (config.selectedModelTruck.empty() ? std::string("(none)") : config.selectedModelTruck) << "'\n";
+
+                config.isConfigured = true;
+                startSimulation = true;
+            }
+        }
+        DrawRectangleRec(btnStart, startColor);
+        DrawRectangleLinesEx(btnStart, 3, RAYWHITE);
+        DrawText("DEMARRER", 
+                 btnStart.x + btnStart.width/2 - MeasureText("DEMARRER", 24)/2, 
+                 btnStart.y + 13, 24, BLACK);
+        
+        // Bouton Reset
+        Color resetColor = ORANGE;
+        if (CheckCollisionPointRec(GetMousePosition(), btnReset)) {
+            resetColor = Color{255, 200, 100, 255};
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                // Reset per-type counts
+                for (const auto& t : vehicleTypes) config.vehicleCounts[t] = 0;
+            }
+        }
+        DrawRectangleRec(btnReset, resetColor);
+        DrawRectangleLinesEx(btnReset, 3, RAYWHITE);
+        DrawText("RESET", 
+                 btnReset.x + btnReset.width/2 - MeasureText("RESET", 24)/2, 
+                 btnReset.y + 13, 24, BLACK);
+        
+        // Instructions
+        DrawText("Cliquez et glissez sur les barres pour ajuster", 
+                 screenWidth/2 - MeasureText("Cliquez et glissez sur les barres pour ajuster", 16)/2, 
+                 screenHeight - 40, 16, LIGHTGRAY);
+        
+        EndDrawing();
+    }
+    
+    CloseWindow();
+    return config;
+}
+
+void LoadNetworkFlexible(RoadNetwork& network) {
+    // 1. Try Loading from JSON
+    std::cout << "Attempting to load configuration from: config/configuration.json" << std::endl;
+    // Ensure accurate path (cwd is usually project root)
+    if (MapLoader::LoadFromFile("config/configuration.json", network)) {
+        std::cout << "SUCCESS: Network loaded from JSON. Nodes: " << network.GetNodes().size() << std::endl;
+        if (network.GetNodes().empty()) {
+             std::cerr << "WARNING: JSON loaded but empty! Falling back to hardcoded network." << std::endl;
+             CreateTestNetwork(network);
+        }
+    } 
+    else {
+         // 2. Fallback
+         std::cerr << "FAILURE: Could not load JSON config. Falling back to hardcoded network." << std::endl;
+         CreateTestNetwork(network);
+    }
+}
+
 int main() {
+    SimulationConfig config = ShowConfigurationMenu();
+    if (!config.isConfigured) return 0;
+    
+    // ==================== INITIALIZATION ====================
     InitWindow(1600, 900, "SMART CITY - Traffic Core Simulator");
     SetTargetFPS(60);
     
+    std::vector<std::string> vehicleTypes = { "Car", "Bus", "Truck" };
+
+    // Prepare model lists
+    std::vector<std::string> carModels, busModels, truckModels;
+    std::vector<std::string> candidateDirs = { "assets/models", "../assets/models", "../../assets/models", "../TrafficCore/assets/models", "TrafficCore/assets/models" };
+    for (const auto& dir : candidateDirs) {
+        try {
+            if (!std::filesystem::exists(dir)) continue;
+            for (const auto& entry : std::filesystem::directory_iterator(dir)) {
+                if (!entry.is_regular_file()) continue;
+                auto path = entry.path();
+                if (path.has_extension() && (path.extension() == ".glb" || path.extension() == ".GLB")) {
+                    std::string lower = path.filename().string();
+                    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+                    if (lower.find("bus") != std::string::npos && lower.find("stop") == std::string::npos && lower.find("station") == std::string::npos) busModels.push_back(std::filesystem::absolute(path).string());
+                    else if (lower.find("truck") != std::string::npos) truckModels.push_back(std::filesystem::absolute(path).string());
+                    else if (lower.find("car") != std::string::npos || lower.find("taxi") != std::string::npos || lower.find("convertible") != std::string::npos) carModels.push_back(std::filesystem::absolute(path).string());
+                }
+            }
+            break;
+        } catch (...) {}
+    }
+
+    
     InitCamera();
     
+    int sampleCountPerSegment = 12;
     TrafficManager trafficMgr;
     RoadNetwork network;
-    CreateTestNetwork(network);
+    LoadNetworkFlexible(network); // Uses JSON with fallback
     
     // Centrer caméra sur réseau
     Vector3 networkCenter = {0, 0, 0};
@@ -692,113 +948,88 @@ int main() {
         g_camState.focusPoint = networkCenter;
         g_camera.target = networkCenter;
     }
+
+    // PathFinder pour le calcul d'itinéraires
+    PathFinder pathfinder(&network);
     
-    // Charger modèles 3D
+    // Charger modèles pour TrafficManager
     ModelManager& mm = ModelManager::getInstance();
-    std::vector<std::string> candidateDirs = {
-        "assets/models",
-        "../assets/models",
-        "../../assets/models",
-        "../TrafficCore/assets/models",
-        "TrafficCore/assets/models"
-    };
-    
-    for (const auto& dir : candidateDirs) {
-        try {
-            if (!std::filesystem::exists(dir)) continue;
-            for (const auto& entry : std::filesystem::directory_iterator(dir)) {
-                if (!entry.is_regular_file()) continue;
-                auto path = entry.path();
-                if (path.has_extension() && 
-                    (path.extension() == ".glb" || path.extension() == ".GLB")) {
-                    std::string filename = path.filename().string();
-                    std::string lowercase = filename;
-                    std::transform(lowercase.begin(), lowercase.end(), 
-                                 lowercase.begin(), ::tolower);
-                    
-                    // Exclude fountain and school from vehicle system
-                    if (lowercase.find("fountain") != std::string::npos) continue;
-                    if (lowercase.find("school") != std::string::npos) continue;
-                    if (lowercase.find("sh") != std::string::npos) continue; // Exclude SH module
-                    if (lowercase.find("tree") != std::string::npos) continue; // Exclude Tree assets
-                    if (lowercase.find("plant") != std::string::npos) continue; // Exclude Plant assets
-                    if (lowercase.find("abribus") != std::string::npos) continue; // Exclude Abribus assets
-                    if (lowercase.find("bus_station") != std::string::npos) continue;
-                    if (lowercase.find("busstop") != std::string::npos) continue; // Exclude Bus Stop assets
-                    if (lowercase.find("stop") != std::string::npos) continue; // Exclude Bus Stop assets
-                    if (lowercase.find("building") != std::string::npos) continue; // Exclude Building assets
-                    if (lowercase.find("stadium") != std::string::npos) continue; // Exclude Stadium asset
-                    if (lowercase.find("restaurant") != std::string::npos) continue; // Exclude Restaurant
-                    if (lowercase.find("hotel") != std::string::npos) continue; // Exclude Hotel
+    for (const auto& m : carModels) mm.loadModel("CAR", m);
+    for (const auto& m : busModels) mm.loadModel("BUS", m);
+    for (const auto& m : truckModels) mm.loadModel("TRUCK", m);
+    // Spawner Setup (Entry at n1)
+    const auto& nodes = network.GetNodes();
+    // Link network to traffic manager so it can compute leader relationships and intersection logic
+    trafficMgr.setRoadNetwork(&network);
+    if (!nodes.empty()) {
+        // Entry Points setup removed to enforce manual strict spawning from allowed nodes only.
+    }
 
-                    // Filter: Only exclude explicitly bad files if known, otherwise load user's folder
-                    // User cleaned folder, so we load everything present.
-                    // if (lowercase.find("bad_file") != std::string::npos) continue;
 
-                    std::string category = "CAR";
-                    if (lowercase.find("truck") != std::string::npos) category = "TRUCK";
-                    else if (lowercase.find("bus") != std::string::npos) category = "BUS";
-                    
-                    mm.loadModel(category, std::filesystem::absolute(path).string());
+    // Spawn initial vehicles using ONLY the flux nodes (N1, N3, N7, N9, N10)
+    if (!nodes.empty()) {
+        // Identify flux nodes by position
+        std::vector<int> fluxNodeIds;
+        std::vector<Vector3> targetPos = {
+            {1050.0f, 0.0f, -450.0f}, // N1
+            {700.0f, 0.0f, -250.0f},  // N3
+            {0.0f, 0.0f, -600.0f},    // N7
+            {0.0f, 0.0f, 150.0f},     // N9
+            {-150.0f, 0.0f, 0.0f}     // N10
+        };
+        
+        for (const auto& n : nodes) {
+            Vector3 p = n->GetPosition();
+            for (const auto& t : targetPos) {
+                if (fabs(p.x - t.x) < 5.0f && fabs(p.z - t.z) < 5.0f) {
+                    fluxNodeIds.push_back(n->GetId());
+                    break;
                 }
             }
-            break;
-        } catch (...) {}
-    }
-    
-    // Créer véhicules initiaux
-    std::vector<std::string> availableModels = {
-        "Tesla", "Truck", "Convertible", "CarBlanc", "Red Car", "Model 1"
-    };
-    
-    int nextCarId = 1;
-    int sampleCountPerSegment = 12;
-    const auto& nodes = network.GetNodes();
-    int desiredVehicles = (int)network.GetRoadSegmentCount() * 6; // High density
-    int vehiclesCreated = 0;
-    int maxAttempts = desiredVehicles * 5;
-    int attempts = 0;
-    
-        while (vehiclesCreated < desiredVehicles && attempts < maxAttempts) {
-            attempts++;
-            if (nodes.empty()) break;
-            
-            Node* start = nodes[GetRandomValue(0, (int)nodes.size()-1)].get();
-            Node* end = start;
-            int tries = 0;
-            while (end == start && tries < 10) {
-                end = nodes[GetRandomValue(0, (int)nodes.size()-1)].get();
-                tries++;
-            }
-            
-            auto nodePath = network.FindPath(start, end);
-            if (nodePath.size() < 2) continue;
-            
-            // Use Helper
-            std::vector<Vector3> pathPoints = GeneratePathPoints(network, nodePath, sampleCountPerSegment);
-            
-            if (pathPoints.size() < 2) continue;
-            
-            // Safety Check
-            bool safe = true;
-            for (const auto& otherPos : trafficMgr.getVehiclePositions()) {
-                 if (Vector3Distance(pathPoints.front(), otherPos) < 10.0f) {
-                     safe = false;
-                     break;
-                 }
-            }
-            if (!safe) continue;
-
-            auto car = CarFactory::createCar(
-                StringToCarModel(availableModels[GetRandomValue(0, availableModels.size()-1)]), 
-                pathPoints.front(), 
-                nextCarId++
-            );
-            car->normalizeSize(10.0f); // FORCE UNIFORM LARGE SIZE (10 units)
-            car->setItinerary(pathPoints);
-            trafficMgr.addVehicle(std::move(car));
-            vehiclesCreated++;
         }
+        
+        if (fluxNodeIds.size() >= 2) {
+            static std::mt19937 rng((unsigned)time(nullptr));
+            std::uniform_int_distribution<int> fluxDist(0, (int)fluxNodeIds.size() - 1);
+
+            // Spawn Cars
+            int carCount = config.vehicleCounts["Car"];
+            for (int i = 0; i < carCount; ++i) {
+                int s = fluxDist(rng);
+                int e = fluxDist(rng);
+                while (s == e && fluxNodeIds.size() > 1) e = fluxDist(rng);
+                trafficMgr.spawnVehicleByNodeIds(fluxNodeIds[s], fluxNodeIds[e], VehiculeType::CAR);
+            }
+            // Spawn Buses
+            int busCount = config.vehicleCounts["Bus"];
+            for (int i = 0; i < busCount; ++i) {
+                int s = fluxDist(rng);
+                int e = fluxDist(rng);
+                while (s == e && fluxNodeIds.size() > 1) e = fluxDist(rng);
+                trafficMgr.spawnVehicleByNodeIds(fluxNodeIds[s], fluxNodeIds[e], VehiculeType::BUS);
+            }
+            // Spawn Trucks
+            int truckCount = config.vehicleCounts["Truck"];
+            for (int i = 0; i < truckCount; ++i) {
+                int s = fluxDist(rng);
+                int e = fluxDist(rng);
+                while (s == e && fluxNodeIds.size() > 1) e = fluxDist(rng);
+                trafficMgr.spawnVehicleByNodeIds(fluxNodeIds[s], fluxNodeIds[e], VehiculeType::TRUCK);
+            }
+        }
+    }
+
+    auto modelResolver = [&](VehiculeType t)->std::string {
+        if (t == VehiculeType::CAR) return config.selectedModelCar;
+        if (t == VehiculeType::BUS) return config.selectedModelBus;
+        if (t == VehiculeType::TRUCK) return config.selectedModelTruck;
+        return "";
+    };
+
+    // Itinerary resolver removed (Safety: prevent random spawning)
+
+    int desiredVehicles = 0;
+    for (auto const& [type, count] : config.vehicleCounts) desiredVehicles += count;
 
     // --- LOAD FOUNTAIN MODEL ---
     Model fountainModel = LoadModel("../TrafficCore/assets/models/fountain_water_simulation.glb");
@@ -829,12 +1060,12 @@ int main() {
         float radius = 25.0f;
         plantPositions.push_back({
             n5Pos.x + cosf(angle) * radius,
-            n5Pos.y,
+            0.2f,
             n5Pos.z + sinf(angle) * radius
         });
     }
     // Ajouter un au centre
-    plantPositions.push_back(n5Pos);
+    plantPositions.push_back({n5Pos.x, 0.2f, n5Pos.z});
 
     // --- LOAD ABRIBUS ---
     Model abribusModel = LoadModel("../TrafficCore/assets/models/abribus_bus_stop_bus_station.glb");
@@ -865,8 +1096,7 @@ int main() {
     Vector3 hotelPos = { -75.0f, 0.0f, 35.0f }; // Near n8 and n10, offset from road
     float hotelScale = 15.0f;
 
-    bool paused = false;
-    float simTime = 0.0f;
+    bool returnToMenu = false;
 
     Model buildingModel3 = LoadModel("../TrafficCore/assets/models/Large Building 3.glb");
     float building3Scale = 40.0f;
@@ -877,27 +1107,77 @@ int main() {
     }
 
     // ==================== LOOP ====================
-    while (!WindowShouldClose()) {
+    bool paused = false;
+    float simTime = 0.0f;
+    while (!WindowShouldClose() && !returnToMenu) {
         float dt = GetFrameTime();
         if (!paused) simTime += dt;
         
         // Input
         if (IsKeyPressed(KEY_SPACE)) paused = !paused;
+        
+        // Retour au menu avec touche M
+        if (IsKeyPressed(KEY_M)) {
+            returnToMenu = true;
+        }
 
         // Caméra
         UpdateCamera(trafficMgr, dt);
 
-        // Ajouter véhicule
-        if (IsKeyPressed(KEY_V) && !nodes.empty()) {
-            Node* randomNode = nodes[GetRandomValue(0, nodes.size()-1)].get();
-            Vector3 pos = randomNode->GetPosition();
-            auto car = CarFactory::createCar(
-                StringToCarModel(availableModels[GetRandomValue(0, availableModels.size()-1)]),
-                pos,
-                nextCarId++
-            );
-            car->normalizeSize(10.0f); // FORCE UNIFORM LARGE SIZE
-            trafficMgr.addVehicle(std::move(car));
+        // Ajouter véhicule (Touche V)
+        if (IsKeyPressed(KEY_V)) {
+            const auto& nodes = network.GetNodes();
+            static std::vector<int> validSpawnIds;
+            
+            // Initialisation unique des 5 points de Flux (Entrée/Sortie)
+            if (validSpawnIds.empty() && nodes.size() >= 2) {
+                 std::vector<Vector3> targetPos = {
+                     {1050.0f, 0.0f, -450.0f}, // N1
+                     {700.0f, 0.0f, -250.0f},  // N3
+                     {0.0f, 0.0f, -600.0f},    // N7
+                     {0.0f, 0.0f, 150.0f},     // N9
+                     {-150.0f, 0.0f, 0.0f}     // N10
+                 };
+                 
+                 std::cout << "Identification des Noeuds de Flux (N1, N3, N7, N9, N10) :" << std::endl;
+                 
+                 for (const auto& n : nodes) {
+                     Vector3 p = n->GetPosition();
+                     for (const auto& t : targetPos) {
+                         // Check X and Z with tolerance (ignore Y)
+                         if (fabs(p.x - t.x) < 5.0f && fabs(p.z - t.z) < 5.0f) {
+                             validSpawnIds.push_back(n->GetId());
+                             std::cout << " - Flux Node Identified: ID " << n->GetId() << std::endl;
+                             break;
+                         }
+                     }
+                 }
+            }
+
+            if (!validSpawnIds.empty()) {
+                static std::mt19937 rng((unsigned)time(nullptr));
+                
+                // 1. Choisir un point de départ parmi les points de flux
+                std::uniform_int_distribution<int> dist(0, (int)validSpawnIds.size() - 1);
+                int startId = validSpawnIds[dist(rng)];
+                
+                // 2. Choisir un point d'arrivée (obligatoirement un point de flux aussi)
+                int endId = validSpawnIds[dist(rng)];
+                
+                // Éviter start == end
+                int attempts = 0;
+                while (endId == startId && attempts < 10) {
+                    endId = validSpawnIds[dist(rng)];
+                    attempts++;
+                }
+                
+                // Random vehicle type
+                std::uniform_int_distribution<int> tdist(0,2);
+                VehiculeType vt = static_cast<VehiculeType>(tdist(rng));
+                
+                bool ok = trafficMgr.spawnVehicleByNodeIds(startId, endId, vt);
+                if (ok) std::cout << "Spawned vehicle from Node " << startId << " to " << endId << std::endl;
+            }
         }
 
         // Supprimer véhicule (Touche K)
@@ -927,62 +1207,18 @@ int main() {
         // Update
         if (!paused) {
             trafficMgr.update(dt);
-            
-            // 1. Remove finished vehicles & Respawn
             trafficMgr.removeFinishedVehicles();
-            const auto& vehicles = trafficMgr.getVehicles();
             
-            // 2. Auto-spawn to maintain density
-            if (vehicles.size() < desiredVehicles && !nodes.empty()) {
-                // Try to spawn a new one
-                 Node* start = nodes[GetRandomValue(0, (int)nodes.size()-1)].get();
-                 Node* end = start;
-                 int tries = 0;
-                 while (end == start && tries < 10) {
-                     end = nodes[GetRandomValue(0, (int)nodes.size()-1)].get();
-                     tries++;
-                 }
-                 
-                 // Reuse path generation logic? Ideally refactor into function.
-                 // For now, duplicate or quick inline check
-                 auto nodePath = network.FindPath(start, end);
-                 if (nodePath.size() >= 2) {
-                     std::vector<Vector3> pathPoints = GeneratePathPoints(network, nodePath, sampleCountPerSegment);
-                     
-                     if (pathPoints.size() >= 2) {
-                         // Check safety
-                         bool safe = true;
-                         Vector3 spawnPos = pathPoints.front();
-                         for (const auto& v : vehicles) {
-                             if (Vector3Distance(v->getPosition(), spawnPos) < 15.0f) {
-                                 safe = false;
-                                 break;
-                             }
-                         }
-                         
-                         if (safe) {
-                             auto car = CarFactory::createCar(
-                                 StringToCarModel(availableModels[GetRandomValue(0, availableModels.size()-1)]),
-                                 spawnPos,
-                                 nextCarId++
-                             );
-                             
-                             // Adjust size based on model type
-                             float size = 10.0f; // Standard car size
-                             if (car->getModelType() == CarModel::GENERIC_MODEL_1 || 
-                                 car->getModelType() == CarModel::TRUCK) {
-                                 size = 16.0f; // Bigger for Bus/Truck
-                             }
-                             
-                             car->normalizeSize(size);
-                             car->setItinerary(pathPoints);
-                             trafficMgr.addVehicle(std::move(car));
-                         }
-                     }
-                 }
+            // Spawn automatique désactivé : Utiliser la touche V pour ajouter des véhicules
+            // (garantit que seuls les nœuds de flux N1, N3, N7, N9, N10 sont utilisés)
+            /*
+            if (trafficMgr.getVehicleCount() < desiredVehicles && trafficMgr.hasPending()) {
+                trafficMgr.spawnNext(modelResolver, itineraryResolver);
             }
+            */
         }
-        
+
+
         // ==================== DRAW ====================
         BeginDrawing();
         
@@ -1040,47 +1276,54 @@ int main() {
             }
         EndMode3D();
         
-        // UI
+
+        
         DrawUIPanel(10, 10, 350, 180, "SMART CITY - BOUKHALF 2030");
-        DrawText(TextFormat("Vehicles: %d", trafficMgr.getVehicleCount()), 
-                 20, 50, 18, GREEN);
+        DrawText(TextFormat("Vehicles: %d", trafficMgr.getVehicleCount()), 20, 50, 18, GREEN);
         DrawText(TextFormat("Time: %.1f s", simTime), 20, 75, 16, SKYBLUE);
         DrawText(paused ? "PAUSED" : "RUNNING", 20, 100, 16, paused ? RED : GREEN);
         DrawCameraInfo();
         
-        DrawUIPanel(10, 200, 350, 320, "CONTROLS");
+        DrawUIPanel(10, 200, 350, 340, "CONTROLES");
         DrawText("SPACE     : Pause/Resume", 20, 225, 13, WHITE);
         DrawText("V / K     : Add / Delete Vehicle", 20, 243, 13, WHITE);
-        DrawText("R         : Reset Camera", 20, 261, 13, WHITE);
-        DrawText("C         : Cinematic Mode (Auto-Orbit)", 20, 279, 13, SKYBLUE);
-        
-        DrawText("1 / 2 / 3 : Camera Modes", 20, 310, 13, YELLOW);
-        DrawText("  1 = Orbital (RTS)", 20, 326, 12, LIGHTGRAY);
-        DrawText("  2 = Free Fly (FPS)", 20, 340, 12, LIGHTGRAY);
-        DrawText("  3 = Follow Vehicle", 20, 354, 12, LIGHTGRAY);
-        
-        DrawText("KEYBOARD CONTROLS", 20, 385, 13, YELLOW);
-        DrawText("WASD/ZQSD : Move Focus (Orbital)", 20, 403, 12, GREEN);
-        DrawText("ARROWS    : Rotate (H)", 20, 418, 12, GREEN);
-        DrawText("O / P     : Rotate (V / Pitch)", 20, 433, 12, GREEN);
-        DrawText("E / Q     : Zoom In / Out", 20, 448, 12, GREEN);
-        DrawText("TAB       : Switch Follow Vehicle", 20, 463, 12, GREEN);
-        DrawText("SHIFT     : Speed Boost", 20, 478, 12, GREEN);
+        DrawText("M         : Configuration Menu", 20, 261, 13, ORANGE);
+        DrawText("R         : Reset Camera", 20, 279, 13, WHITE);
+        DrawText("C         : Cinematic Mode", 20, 297, 13, SKYBLUE);
+        DrawText("1 / 2 / 3 : Camera Modes", 20, 328, 13, YELLOW);
+        DrawText("WASD/ZQSD : Move", 20, 403, 12, GREEN);
         
         DrawFPS(1450, 870);
-        DrawText("FIFA World Cup 2030", 1350, 20, 16, MAROON);
-        
         EndDrawing();
     }
     
     EnableCursor();
     CloseWindow();
+    
+    // Si l'utilisateur a appuyé sur M, recommencer avec un nouveau menu
+    if (returnToMenu) {
+        return main(); // Relancer le programme (récursif)
+    }
+    
     return 0;
 }
+
 
 // ==================== UI ====================
 void DrawUIPanel(int x, int y, int width, int height, const char* title) {
     DrawRectangle(x, y, width, height, Fade(BLACK, 0.8f));
     DrawRectangleLines(x, y, width, height, YELLOW);
     DrawText(title, x + 10, y + 8, 16, YELLOW);
+}
+
+// Try loading network from configuration.json; fallback to CreateTestNetwork
+void InitializeNetworkFromConfig(RoadNetwork& network) {
+    const std::string cfgPath = "TrafficCore/config/configuration.json";
+    bool ok = false;
+    try {
+        ok = MapLoader::LoadFromFile(cfgPath, network);
+    } catch (...) { ok = false; }
+    if (!ok) {
+        CreateTestNetwork(network);
+    }
 }

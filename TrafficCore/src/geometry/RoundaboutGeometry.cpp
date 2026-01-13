@@ -230,3 +230,27 @@ Vector3 RoundaboutGeometry::GetLanePosition(int laneIndex, float t, int totalLan
         center.z + r * sinf(angle)
     };
 }
+
+void RoundaboutGeometry::GetPositionAndTangent(float t, Vector3& pos, Vector3& tangent) const {
+    // Clamp t
+    if (t < 0.0f) t = 0.0f;
+    if (t > 1.0f) t = 1.0f;
+
+    float angle = t * 2.0f * PI;
+    float midRadius = (outerRadius + innerRadius) * 0.5f;
+
+    pos.x = center.x + midRadius * cosf(angle);
+    pos.y = center.y;
+    pos.z = center.z + midRadius * sinf(angle);
+
+    // Tangent vector along the circle (counter-clockwise)
+    tangent.x = -sinf(angle);
+    tangent.y = 0.0f;
+    tangent.z = cosf(angle);
+
+    float len = sqrtf(tangent.x * tangent.x + tangent.z * tangent.z);
+    if (len > 1e-6f) {
+        tangent.x /= len;
+        tangent.z /= len;
+    }
+}

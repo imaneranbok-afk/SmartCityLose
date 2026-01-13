@@ -49,6 +49,15 @@ public:
 
     Vector3 GetLanePosition(int laneIndex, float t) const;
 
+    // Calcule la position sur une voie spécifique (0-1: Aller, 2-3: Retour)
+    // t: progression 0.0 à 1.0 le long du segment
+    Vector3 GetTrafficLanePosition(int laneIndex, float t) const;
+    
+    // Accesseurs
+    Vector3 GetStartPos() const { return startNode->GetPosition(); }
+    Vector3 GetEndPos() const { return endNode->GetPosition(); }
+    Vector3 GetDirection() const;
+    
     // Retourne la progression le long du segment pour une position donnée (0..1),
     // ou -1 si la position est trop éloignée du segment.
     float ComputeProgressOnSegment(const Vector3& pos) const;

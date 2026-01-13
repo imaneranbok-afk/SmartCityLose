@@ -33,8 +33,7 @@ public:
     // Trouver un noeud par ID
     Node* FindNodeById(int id) const;
     
-    // Recherche de chemin (pour les véhicules)
-    std::vector<Node*> FindPath(Node* start, Node* end) const;
+    // Pathfinding is now handled by PathFinder class.
     
     // Mise à jour et rendu
     void Update(float deltaTime);
