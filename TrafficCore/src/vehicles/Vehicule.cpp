@@ -87,7 +87,7 @@ void Vehicule::setRoute(const std::deque<RoadSegment*>& newRoute) {
 }
 
 void Vehicule::setLane(int laneId) {
-    currentLane = std::clamp(laneId, 0, 3);
+    currentLane = std::clamp(laneId, 0, 99);
 }
 
 void Vehicule::updatePhysics(float dt) {
@@ -97,7 +97,7 @@ void Vehicule::updatePhysics(float dt) {
     const float MINIMUM_SAFETY_DISTANCE = 22.0f;
     const float CRITICAL_SAFETY_DISTANCE = 10.0f;
     
-    isWaiting = false;
+    // isWaiting = false; // Managed by TrafficManager (do not reset here)
     if (leader != nullptr) {
         Vector3 toLeader = Vector3Subtract(leader->getPosition(), position);
         float distToLeader = Vector3Length(toLeader);
@@ -115,10 +115,13 @@ void Vehicule::updatePhysics(float dt) {
                 currentSpeed -= acceleration * dt * 4.0f;
                 if (currentSpeed < 10.0f) currentSpeed = 10.0f;
             }
-        }
+     
+       }
     }
+     
+    if (isWaiting) currentSpeed = 0.0f; // Force stop if waiting (Red light or leader)
     
-    if (currentSpeed < maxSpeed) {
+    if (currentSpeed < maxSpeed && !isWaiting) {
         currentSpeed += acceleration * dt;
         if (currentSpeed > maxSpeed) currentSpeed = maxSpeed;
     }

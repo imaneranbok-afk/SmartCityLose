@@ -319,6 +319,7 @@ Vector3 RoadSegment::GetTrafficLanePosition(int laneIndex, float t) const {
             switch(laneIndex) {
                 case 0: offset =  0.5f * effectiveWidth; break; // Unique voie Aller
                 case 1: offset = -0.5f * effectiveWidth; break; // Unique voie Retour
+                case 9: offset =  1.5f * effectiveWidth; break; // Épaulement / Bas-côté (Pull over)
                 default: offset = 0.5f * effectiveWidth; break;
             }
         } else {
@@ -328,6 +329,7 @@ Vector3 RoadSegment::GetTrafficLanePosition(int laneIndex, float t) const {
                 case 1: offset =  0.5f * effectiveWidth; break; // Intérieure Aller
                 case 2: offset = -0.5f * effectiveWidth; break; // Intérieure Retour
                 case 3: offset = -1.5f * effectiveWidth; break; // Extérieure Retour
+                case 9: offset =  2.5f * effectiveWidth; break; // Épaulement / Bas-côté (Pull over)
                 default: offset = 0.0f; break;
             }
         }
@@ -349,6 +351,7 @@ Vector3 RoadSegment::GetTrafficLanePosition(int laneIndex, float t) const {
          switch(laneIndex) {
             case 0: offset =  0.5f * effectiveWidth; break;
             case 1: offset = -0.5f * effectiveWidth; break;
+            case 9: offset =  1.5f * effectiveWidth; break;
             default: offset = 0.5f * effectiveWidth; break;
         }
     } else {
@@ -357,10 +360,10 @@ Vector3 RoadSegment::GetTrafficLanePosition(int laneIndex, float t) const {
             case 1: offset =  0.5f * effectiveWidth; break;
             case 2: offset = -0.5f * effectiveWidth; break;
             case 3: offset = -1.5f * effectiveWidth; break;
+            case 9: offset =  2.5f * effectiveWidth; break;
         }
     }
 
     Vector3 basePos = Vector3Add(start, Vector3Scale(dir, GetLength() * t));
     return Vector3Add(basePos, Vector3Scale(rightNormal, offset));
 }
-

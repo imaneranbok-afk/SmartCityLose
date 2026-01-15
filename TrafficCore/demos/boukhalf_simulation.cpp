@@ -16,6 +16,7 @@
 #include <cmath>
 #include <filesystem>
 #include "Vehicules/ModelManager.h"
+#include "Vehicules/EmergencyManager.h"
 #include "PathFinder.h"
 #include <map>
 #include "MapLoader.h"
@@ -594,16 +595,16 @@ CarModel StringToCarModel(const std::string& name) {
 
 // ==================== ROAD NETWORK SETUP ====================
 void CreateTestNetwork(RoadNetwork& network) {
-    Node* n1 = network.AddNode({1050.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n2 = network.AddNode({700.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n3 = network.AddNode({700.0f, 0.2f, -250.0f}, SIMPLE_INTERSECTION, 8.0f);
-    Node* n4 = network.AddNode({350.0f, 0.2f, -450.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n1 = network.AddNode({1050.0f, 0.2f, -450.0f}, TRAFFIC_LIGHT, 20.0f);
+    Node* n2 = network.AddNode({700.0f, 0.2f, -450.0f}, TRAFFIC_LIGHT, 20.0f);
+    Node* n3 = network.AddNode({700.0f, 0.2f, -250.0f}, TRAFFIC_LIGHT, 20.0f);
+    Node* n4 = network.AddNode({350.0f, 0.2f, -450.0f}, TRAFFIC_LIGHT, 20.0f);
     Node* n5 = network.AddNode({350.0f, 0.2f, 0.0f}, ROUNDABOUT, 60.0f);
     Node* n6 = network.AddNode({0.0f, 0.2f, -450.0f}, ROUNDABOUT, 60.0f);
-    Node* n7 = network.AddNode({0.0f, 0.0f, -600.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n7 = network.AddNode({0.0f, 0.0f, -600.0f}, TRAFFIC_LIGHT, 20.0f);
     Node* n8 = network.AddNode({0.0f, 0.0f, 0.0f}, TRAFFIC_LIGHT, 25.0f);
-    Node* n9 = network.AddNode({0.0f, 0.0f, 150.0f}, SIMPLE_INTERSECTION, 20.0f);
-    Node* n10 = network.AddNode({-150.0f, 0.0f, 0.0f}, SIMPLE_INTERSECTION, 20.0f);
+    Node* n9 = network.AddNode({0.0f, 0.0f, 150.0f}, TRAFFIC_LIGHT, 20.0f);
+    Node* n10 = network.AddNode({-150.0f, 0.0f, 0.0f}, TRAFFIC_LIGHT, 20.0f);
     
     network.AddRoadSegment(n1, n2, 4, false);
     network.AddRoadSegment(n2, n1, 4, false)->SetVisible(false); // Reverse
@@ -952,11 +953,11 @@ int main() {
     // PathFinder pour le calcul d'itinéraires
     PathFinder pathfinder(&network);
     
-    // Charger modèles pour TrafficManager
-    ModelManager& mm = ModelManager::getInstance();
-    for (const auto& m : carModels) mm.loadModel("CAR", m);
-    for (const auto& m : busModels) mm.loadModel("BUS", m);
-    for (const auto& m : truckModels) mm.loadModel("TRUCK", m);
+    // ==================== SYSTÈME D'URGENCE ====================
+    EmergencyManager emergencySystem(&network);
+    // Ajouter l'hôpital à une position visible sur la map
+    emergencySystem.addHospital({850.0f, -520.0f}); // Aligned with grey buildings, connected to road
+    
     // Spawner Setup (Entry at n1)
     const auto& nodes = network.GetNodes();
     // Link network to traffic manager so it can compute leader relationships and intersection logic
@@ -1206,8 +1207,22 @@ int main() {
         
         // Update
         if (!paused) {
+            // Mettre à jour le réseau (feux de circulation)
+            network.Update(dt);
+            
             trafficMgr.update(dt);
             trafficMgr.removeFinishedVehicles();
+            
+            // Mettre à jour le système d'urgence (sans rendu ici)
+            emergencySystem.update(dt);
+            
+            // Faire céder le passage aux véhicules d'urgence
+            auto& vehicles = trafficMgr.getVehiclesCheck();
+            std::vector<Vehicule*> normalVehicles;
+            for (auto& v : vehicles) {
+                normalVehicles.push_back(v.get());
+            }
+            emergencySystem.yieldToEmergencyVehicle(normalVehicles);
             
             // Spawn automatique désactivé : Utiliser la touche V pour ajouter des véhicules
             // (garantit que seuls les nœuds de flux N1, N3, N7, N9, N10 sont utilisés)
@@ -1216,6 +1231,23 @@ int main() {
                 trafficMgr.spawnNext(modelResolver, itineraryResolver);
             }
             */
+        }
+        
+        // Contrôles pour déclencher les véhicules d'urgence (F5/F6/F7)
+        if (IsKeyPressed(KEY_F5)) {
+            // Ambulance vers un point aléatoire
+            Vector2 randomDest = {GetRandomValue(-200, 800), GetRandomValue(-600, 200)};
+            emergencySystem.dispatchEmergencyVehicle(0, randomDest); // 0 = AMBULANCE
+        }
+        if (IsKeyPressed(KEY_F6)) {
+            // Camion de pompiers vers un point aléatoire
+            Vector2 randomDest = {GetRandomValue(-200, 800), GetRandomValue(-600, 200)};
+            emergencySystem.dispatchEmergencyVehicle(1, randomDest); // 1 = FIRE_TRUCK
+        }
+        if (IsKeyPressed(KEY_F7)) {
+            // Voiture de police vers un point aléatoire
+            Vector2 randomDest = {GetRandomValue(-200, 800), GetRandomValue(-600, 200)};
+            emergencySystem.dispatchEmergencyVehicle(2, randomDest); // 2 = POLICE
         }
 
 
@@ -1274,6 +1306,9 @@ int main() {
             for (const auto& car : trafficMgr.getVehicles()) {
                 car->draw();
             }
+            
+            // Dessiner le système d'urgence (hôpital et véhicules d'urgence)
+            emergencySystem.updateAndDraw(dt);
         EndMode3D();
         
 
@@ -1284,7 +1319,7 @@ int main() {
         DrawText(paused ? "PAUSED" : "RUNNING", 20, 100, 16, paused ? RED : GREEN);
         DrawCameraInfo();
         
-        DrawUIPanel(10, 200, 350, 340, "CONTROLES");
+        DrawUIPanel(10, 200, 350, 400, "CONTROLES");
         DrawText("SPACE     : Pause/Resume", 20, 225, 13, WHITE);
         DrawText("V / K     : Add / Delete Vehicle", 20, 243, 13, WHITE);
         DrawText("M         : Configuration Menu", 20, 261, 13, ORANGE);
@@ -1292,6 +1327,13 @@ int main() {
         DrawText("C         : Cinematic Mode", 20, 297, 13, SKYBLUE);
         DrawText("1 / 2 / 3 : Camera Modes", 20, 328, 13, YELLOW);
         DrawText("WASD/ZQSD : Move", 20, 403, 12, GREEN);
+        
+        DrawUIPanel(10, 610, 350, 140, "URGENCES");
+        DrawText("F5        : Ambulance", 20, 635, 13, RED);
+        DrawText("F6        : Pompiers", 20, 653, 13, Color{255, 140, 0, 255});
+        DrawText("F7        : Police", 20, 671, 13, BLUE);
+        DrawText(TextFormat("Urgences: %d", (int)emergencySystem.getEmergencyVehicles().size()), 
+                 20, 707, 13, YELLOW);
         
         DrawFPS(1450, 870);
         EndDrawing();

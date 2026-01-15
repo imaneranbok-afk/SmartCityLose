@@ -58,6 +58,11 @@ Node* RoadNetwork::FindNodeById(int id) const {
 // RoadNetwork no longer contains pathfinding logic; use PathFinder class instead.
 
 void RoadNetwork::Update(float deltaTime) {
+    // Mettre à jour les feux de circulation
+    for (const auto& node : nodes) {
+        node->UpdateTrafficLight(deltaTime);
+    }
+    
     for (const auto& intersection : intersections) {
         intersection->Update(deltaTime);
     }

@@ -1,5 +1,6 @@
 #include "Vehicules/TrafficManager.h"
 #include "Vehicules/VehiculeFactory.h"
+#include "Vehicules/EmergencyVehicle.h"
 #include "RoadNetwork.h"
 #include <algorithm>
 #include <iostream> // For runtime warnings when model loading fails
@@ -229,9 +230,29 @@ void TrafficManager::update(float deltaTime) {
                      bool isOccupant = (std::find(occ.begin(), occ.end(), v) != occ.end());
 
                      if (!isOccupant) {
-                         // Pour une simulation fluide, on entre directement sans attendre
-                         inter->Enter(v);
-                         v->setWaiting(false);
+                         // TRAFFIC LIGHT LOGIC
+                         bool redLightStop = false;
+                         if (inter->GetNode()->GetType() == TRAFFIC_LIGHT) {
+                             // Check if emergency vehicle on mission (they ignore lights)
+                             bool isEmergencyOnMission = false;
+                             if (auto* ev = dynamic_cast<EmergencyVehicle*>(v)) {
+                                 if (ev->isOnMission()) isEmergencyOnMission = true;
+                             }
+
+                             if (!isEmergencyOnMission) {
+                                 auto state = inter->GetNode()->GetLightState();
+                                 if (state == LIGHT_RED || state == LIGHT_YELLOW) {
+                                     redLightStop = true;
+                                 }
+                             }
+                         }
+
+                         if (redLightStop) {
+                             v->setWaiting(true);
+                         } else {
+                             inter->Enter(v);
+                             v->setWaiting(false);
+                         }
                      }
                 }
                 // Zone intérieure

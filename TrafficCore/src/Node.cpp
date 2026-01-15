@@ -3,7 +3,10 @@
 #include "raymath.h"
 
 Node::Node(int id, Vector3 position, NodeType type, float radius)
-    : id(id), position(position), type(type), radius(radius) {}
+    : id(id), position(position), type(type), radius(radius),
+      lightState(LIGHT_GREEN), lightTimer(0.0f),
+      redDuration(5.0f), yellowDuration(2.0f), greenDuration(8.0f),
+      emergencyOverride(false), emergencyOverrideTimer(0.0f) {}
 
 void Node::AddConnectedRoad(RoadSegment* road) {
     connectedRoads.push_back(road);
@@ -20,6 +23,52 @@ Vector3 Node::GetConnectionTangent(Vector3 direction) const {
     
     // Pour les intersections simples, la direction reste la même
     return direction;
+}
+
+void Node::UpdateTrafficLight(float deltaTime) {
+    if (type != TRAFFIC_LIGHT) return;
+    
+    // Gestion du override d'urgence
+    if (emergencyOverride) {
+        emergencyOverrideTimer -= deltaTime;
+        if (emergencyOverrideTimer <= 0.0f) {
+            emergencyOverride = false;
+            lightTimer = 0.0f; // Reset pour reprendre le cycle normal
+        }
+        return; // Pendant l'override, on reste au vert
+    }
+    
+    // Cycle normal des feux
+    lightTimer += deltaTime;
+    
+    switch (lightState) {
+        case LIGHT_GREEN:
+            if (lightTimer >= greenDuration) {
+                lightState = LIGHT_YELLOW;
+                lightTimer = 0.0f;
+            }
+            break;
+        case LIGHT_YELLOW:
+            if (lightTimer >= yellowDuration) {
+                lightState = LIGHT_RED;
+                lightTimer = 0.0f;
+            }
+            break;
+        case LIGHT_RED:
+            if (lightTimer >= redDuration) {
+                lightState = LIGHT_GREEN;
+                lightTimer = 0.0f;
+            }
+            break;
+    }
+}
+
+void Node::SetEmergencyOverride(bool override, float duration) {
+    emergencyOverride = override;
+    emergencyOverrideTimer = duration;
+    if (override) {
+        lightState = LIGHT_GREEN; // Force au vert immédiatement
+    }
 }
 
 void Node::Draw() const {
@@ -45,8 +94,6 @@ void Node::Draw() const {
             // Zone d'intersection carrée
             DrawCube(position, intersectionSize * 2, 0.01f, intersectionSize * 2, roadColor);
             
-            
-            
             // Feux tricolores aux 4 coins
             Vector3 corners[4] = {
                 {position.x + intersectionSize, position.y, position.z + intersectionSize},
@@ -55,19 +102,46 @@ void Node::Draw() const {
                 {position.x - intersectionSize, position.y, position.z - intersectionSize}
             };
             
+            // Déterminer la couleur active selon l'état
+            Color activeRed = (lightState == LIGHT_RED || emergencyOverride) ? RED : Fade(RED, 0.3f);
+            Color activeYellow = (lightState == LIGHT_YELLOW && !emergencyOverride) ? YELLOW : Fade(YELLOW, 0.3f);
+            Color activeGreen = (lightState == LIGHT_GREEN || emergencyOverride) ? GREEN : Fade(GREEN, 0.3f);
+            
             for (int i = 0; i < 4; i++) {
                 // Poteau
-                DrawCylinder(corners[i], 0.4f, 0.4f, 6.0f, 8, DARKGRAY); 
+                DrawCylinder(corners[i], 1.0f, 1.0f, 13.0f, 8, DARKGRAY); 
                 
+                // Configuration de l'orientation selon le coin pour qu'ils se fassent face
+                Vector3 boxSize = {2.2f, 6.0f, 1.6f}; // Par défaut orienté Z
+                Vector3 lightOffset = {0.0f, 0.0f, 0.85f}; // Par défaut face +Z
+                
+                if (i == 0) { // Coin (+X, +Z) -> Face +Z
+                    boxSize = {2.2f, 6.0f, 1.6f};
+                    lightOffset = {0.0f, 0.0f, 0.85f};
+                } 
+                else if (i == 3) { // Coin (-X, -Z) -> Face -Z
+                    boxSize = {2.2f, 6.0f, 1.6f};
+                    lightOffset = {0.0f, 0.0f, -0.85f};
+                }
+                else if (i == 1) { // Coin (+X, -Z) -> Face +X
+                    boxSize = {1.6f, 6.0f, 2.2f}; // Échange largeur/profondeur
+                    lightOffset = {0.85f, 0.0f, 0.0f};
+                }
+                else if (i == 2) { // Coin (-X, +Z) -> Face -X
+                    boxSize = {1.6f, 6.0f, 2.2f}; // Échange largeur/profondeur
+                    lightOffset = {-0.85f, 0.0f, 0.0f};
+                }
+
                 // Boîtier du feu
-                Vector3 lightPos = {corners[i].x, corners[i].y + 5.0f, corners[i].z};
-                DrawCube(lightPos, 0.6f, 1.5f, 0.4f, BLACK);
+                Vector3 lightPos = {corners[i].x, corners[i].y + 10.0f, corners[i].z};
+                DrawCube(lightPos, boxSize.x, boxSize.y, boxSize.z, BLACK);
                 
-                // Feux (rouge, jaune, vert)
-                DrawSphere({lightPos.x, lightPos.y + 0.5f, lightPos.z + 0.25f}, 0.22f, RED);
-                DrawSphere({lightPos.x, lightPos.y, lightPos.z + 0.25f}, 0.22f, YELLOW);
-                DrawSphere({lightPos.x, lightPos.y - 0.5f, lightPos.z + 0.25f}, 0.22f, GREEN);
+                // Feux (rouge, jaune, vert) avec état actif
+                DrawSphere({lightPos.x + lightOffset.x, lightPos.y + 1.8f, lightPos.z + lightOffset.z}, 0.9f, activeRed);
+                DrawSphere({lightPos.x + lightOffset.x, lightPos.y, lightPos.z + lightOffset.z}, 0.9f, activeYellow);
+                DrawSphere({lightPos.x + lightOffset.x, lightPos.y - 1.8f, lightPos.z + lightOffset.z}, 0.9f, activeGreen);
             }
+            
             break;
         }
         
